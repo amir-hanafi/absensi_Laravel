@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siswa', function (Blueprint $table) {
+        Schema::create('kelas', function (Blueprint $table) {
             $table->id();
-            $table->string('nis');
-            $table->string('nama');
-            $table->string('kelas_id');
+            $table->string('nama_kelas');
+            $table->foreignId('guru_id')->constrained('guru')->cascadeOnDelete();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-
+        
     }
 };

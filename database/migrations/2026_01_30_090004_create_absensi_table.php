@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('guru', function (Blueprint $table) {
+        Schema::create('absensi', function (Blueprint $table) {
             $table->id();
-            $table->string('id_guru');
-            $table->string('nama');
-            $table->string('no_hp');
-            $table->string('user_id');
+            $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnDelete();
+            $table->date('tanggal');
+            $table->enum('status', ['Hadir', 'Sakit', 'Ijin', 'Alpha']);
             $table->timestamps();
         });
+
     }
 
     /**
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        
+        Schema::dropIfExists('absensi');
     }
 };

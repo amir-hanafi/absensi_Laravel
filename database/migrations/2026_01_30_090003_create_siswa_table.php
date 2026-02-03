@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('absensi', function (Blueprint $table) {
+        Schema::create('siswa', function (Blueprint $table) {
             $table->id();
-            $table->string('siswa_id');
-            $table->date('date');
-            $table->enum('status', ['Hadir', 'Sakit', 'Ijin', 'Alpha']);
+            $table->string('nis')->unique();
+            $table->string('nama');
+            $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
+
+
     }
 
     /**
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('absensi');
+
     }
 };
