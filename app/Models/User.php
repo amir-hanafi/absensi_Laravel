@@ -2,12 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    protected $fillable = ['username', 'password', 'role'];
+    use HasFactory;
 
+    protected $fillable = [
+        'username',
+        'password',
+        'role',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    // Relasi
     public function guru()
     {
         return $this->hasOne(Guru::class);
@@ -18,4 +30,3 @@ class User extends Model
         return $this->hasOne(Siswa::class);
     }
 }
-
