@@ -42,15 +42,30 @@ class AuthController extends Controller
             $user = $siswa?->user;
         }
 
+        // =====================
+        // VALIDASI PASSWORD
+        // =====================
         if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors([
                 'login' => 'Username / NIS / Kode Guru atau password salah'
             ]);
         }
 
+        // =====================
+        // 🔐 FILTER ROLE ADMIN
+        // =====================
+        if ($user->role !== 'admin') {
+            return back()->withErrors([
+                'login' => 'Akun ini tidak memiliki akses ke Admin Panel'
+            ]);
+        }
+
         Auth::login($user);
+        $request->session()->regenerate();
+
         return redirect()->route('dashboard');
     }
+
 
 
     public function logout()
