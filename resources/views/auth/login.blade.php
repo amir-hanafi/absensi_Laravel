@@ -14,16 +14,8 @@
 <form method="POST" action="/login">
     @csrf
 
-    <label>Role</label><br>
-    <select name="role">
-        <option value="admin">Admin</option>
-        <option value="guru">Guru</option>
-        <option value="siswa">Siswa</option>
-    </select>
-    <br><br>
-
     <label>Username / NIS / Kode Guru</label><br>
-    <input type="text" name="username">
+    <input type="text" name="identifier">
     <br><br>
 
     <label>Password</label><br>
@@ -32,6 +24,7 @@
 
     <button type="submit">Login</button>
 </form>
+
 
 </body>
 </html>

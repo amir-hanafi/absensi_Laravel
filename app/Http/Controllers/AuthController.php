@@ -14,48 +14,44 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'role'     => 'required|in:admin,guru,siswa',
-            'username' => 'required',
-            'password' => 'required',
+            'identifier' => 'required',
+            'password'   => 'required',
         ]);
 
+        $identifier = $request->identifier;
         $user = null;
 
         // =====================
-        // SISWA → NIS
+        // ADMIN (username)
         // =====================
-        if ($request->role === 'siswa') {
-            $siswa = Siswa::where('nis', $request->username)->first();
-            $user  = $siswa?->user;
-        }
+        $user = User::where('username', $identifier)->first();
 
         // =====================
-        // GURU → KODE GURU
+        // GURU (kode_guru)
         // =====================
-        if ($request->role === 'guru') {
-            $guru = Guru::where('kode_guru', $request->username)->first();
+        if (!$user) {
+            $guru = Guru::where('kode_guru', $identifier)->first();
             $user = $guru?->user;
         }
 
         // =====================
-        // ADMIN → USERNAME
+        // SISWA (nis)
         // =====================
-        if ($request->role === 'admin') {
-            $user = User::where('username', $request->username)
-                        ->where('role', 'admin')
-                        ->first();
+        if (!$user) {
+            $siswa = Siswa::where('nis', $identifier)->first();
+            $user = $siswa?->user;
         }
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors([
-                'login' => 'Login gagal'
+                'login' => 'Username / NIS / Kode Guru atau password salah'
             ]);
         }
 
         Auth::login($user);
-
         return redirect()->route('dashboard');
     }
+
 
     public function logout()
     {
