@@ -15,7 +15,8 @@ class Attendance extends Model
         'longitude',
         'distance',
         'status',
-        'scan_time'
+        'scan_time',
+        'jadwal_id'
     ];
 
     protected $casts = [

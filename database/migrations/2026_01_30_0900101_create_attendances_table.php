@@ -30,6 +30,10 @@ return new class extends Migration
 
             $table->dateTime('scan_time');
 
+            $table->foreignId('jadwal_id')
+                ->constrained('jadwal')
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
 
