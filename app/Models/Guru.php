@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Guru extends Model
 {
-    use HasFactory;
 
     protected $table = 'guru';
 
@@ -26,5 +24,10 @@ class Guru extends Model
     public function kelas()
     {
         return $this->hasMany(Kelas::class);
+    }
+
+    public function matapel()
+    {
+        return $this->belongsToMany(Matapel::class, 'guru_matapel');
     }
 }

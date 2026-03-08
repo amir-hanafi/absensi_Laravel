@@ -66,6 +66,59 @@ class AuthController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function apiLogin(Request $request)
+    {
+        $request->validate([
+            'identifier' => 'required',
+            'password'   => 'required',
+        ]);
+
+        $identifier = $request->identifier;
+        $user = null;
+
+        // =====================
+        // ADMIN (username)
+        // =====================
+        $user = User::where('username', $identifier)->first();
+
+        // =====================
+        // GURU (kode_guru)
+        // =====================
+        if (!$user) {
+            $guru = Guru::where('kode_guru', $identifier)->first();
+            $user = $guru?->user;
+        }
+
+        // =====================
+        // SISWA (nis)
+        // =====================
+        if (!$user) {
+            $siswa = Siswa::where('nis', $identifier)->first();
+            $user = $siswa?->user;
+        }
+
+        // =====================
+        // VALIDASI PASSWORD
+        // =====================
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Identifier atau password salah'
+            ], 401);
+        }
+
+        // ✅ TIDAK ADA FILTER ROLE DI API
+
+        return response()->json([
+            'success' => true,
+            'user' => [
+                'id' => $user->id,
+                'username' => $user->username,
+                'role' => $user->role,
+            ]
+        ]);
+    }
+
 
 
     public function logout()
@@ -73,4 +126,15 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/login');
     }
+
+    public function apiLogout(Request $request)
+    {
+        Auth::logout();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout berhasil'
+        ]);
+    }
 }
+
