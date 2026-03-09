@@ -13,14 +13,13 @@ class AttendanceController extends Controller
 
     public function scanQr(Request $request)
     {
-
         $request->validate([
             'token' => 'required',
             'latitude' => 'required',
             'longitude' => 'required'
         ]);
 
-        $user_id = 1;
+        $user = $request->user();
 
         $token = QrToken::where('token', $request->token)->first();
 
@@ -28,7 +27,7 @@ class AttendanceController extends Controller
             return response()->json([
                 "status" => "invalid",
                 "message" => "QR tidak valid"
-            ], 400);
+            ], 404);
         }
 
         if (now()->gt($token->expired_at)) {
@@ -36,6 +35,19 @@ class AttendanceController extends Controller
                 "status" => "invalid",
                 "message" => "QR sudah expired"
             ], 400);
+        }
+
+        // cek apakah sudah absen valid
+        $alreadyValid = Attendance::where('user_id', $user->id)
+            ->where('jadwal_id', $token->jadwal_id)
+            ->where('status', 'valid')
+            ->exists();
+
+        if ($alreadyValid) {
+            return response()->json([
+                "status" => "rejected",
+                "message" => "Anda sudah absen pada jadwal ini"
+            ], 403);
         }
 
         $places = Place::all();
@@ -74,7 +86,8 @@ class AttendanceController extends Controller
 
         Attendance::create([
             'qr_token_id' => $token->id,
-            'user_id' => $user_id,
+            'user_id' => $user->id,
+            'jadwal_id' => $token->jadwal_id,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'distance' => $distance,

@@ -7,7 +7,6 @@ use App\Models\Jadwal;
 use App\Models\Guru;
 use App\Models\Matapel;
 use App\Models\Kelas;
-use Carbon\Carbon;
 
 class JadwalSeeder extends Seeder
 {
@@ -29,32 +28,26 @@ class JadwalSeeder extends Seeder
             "Jumat"
         ];
 
-        $jamList = [
-            ["07:00:00", "08:30:00"],
-            ["08:30:00", "10:00:00"],
-            ["10:15:00", "11:45:00"],
-            ["13:00:00", "14:30:00"],
-            ["14:30:00", "20:00:00"],
-        ];
+        $jamList = [1,2,3,4,5];
 
-        foreach ($gurus as $guru) {
+        foreach ($kelasList as $kelas) {
 
-            foreach ($matapels->random(2) as $mapel) {
+            foreach ($hariList as $hari) {
 
-                $kelas = $kelasList->random();
-                $hari = collect($hariList)->random();
-                $jam = collect($jamList)->random();
+                foreach ($jamList as $jamKe) {
 
-                Jadwal::create([
-                    'tanggal'    => Carbon::today(),
-                    'hari'       => $hari,
-                    'jam_mulai'  => $jam[0],
-                    'jam_selesai' => $jam[1],
-                    'guru_id'    => $guru->id,
-                    'matapel_id' => $mapel->id,
-                    'kelas_id'   => $kelas->id,
-                ]);
+                    Jadwal::create([
+                        'hari' => $hari,
+                        'jam_ke' => $jamKe,
+                        'guru_id' => $gurus->random()->id,
+                        'matapel_id' => $matapels->random()->id,
+                        'kelas_id' => $kelas->id,
+                    ]);
+
+                }
+
             }
+
         }
     }
 }

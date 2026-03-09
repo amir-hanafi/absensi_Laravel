@@ -6,26 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\QrToken;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Models\Jadwal;
+use App\Models\JadwalSekolah;
 
 
 
 class QrController extends Controller
 {
-    //
-    // public function generate($jadwal_id)
-    // {
-    //     $token = Str::random(40);
 
-    //     $qr = QrToken::create([
-    //         'jadwal_id' => $jadwal_id,
-    //         'token' => $token,
-    //         'expired_at' => now()->addMinutes(5)
-    //     ]);
-
-    //     return response()->json([
-    //         'token' => $qr->token
-    //     ]);
-    // }
 
     public function getToken($jadwal_id)
     {
@@ -45,6 +33,62 @@ class QrController extends Controller
         ]);
     }
 
+
+
+    public function getCurrentToken()
+    {
+        $hariMap = [
+            'Monday' => 'Senin',
+            'Tuesday' => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu',
+            'Sunday' => 'Minggu',
+        ];
+
+        $today = $hariMap[Carbon::now()->format('l')];
+        $now = Carbon::now()->format('H:i:s');
+
+
+        $jamSekarang = JadwalSekolah::where('hari', $today)
+            ->where('jam_mulai', '<=', $now)
+            ->where('jam_selesai', '>=', $now)
+            ->first();
+
+        if (!$jamSekarang) {
+            return response()->json([
+                "message" => "Tidak ada jam pelajaran saat ini"
+            ], 404);
+        }
+
+        $jadwal = Jadwal::where('hari', $today)
+            ->where('jam_ke', $jamSekarang->jam_ke)
+            ->first();
+
+
+        if (!$jadwal) {
+            return response()->json([
+                "message" => "Tidak ada jadwal saat ini"
+            ], 404);
+        }
+
+        $qr = QrToken::where('jadwal_id', $jadwal->id)
+            ->latest()
+            ->first();
+
+        if (!$qr) {
+            return response()->json([
+                "message" => "Token belum tersedia"
+            ], 404);
+        }
+
+        return response()->json([
+            "token" => $qr->token,
+            "jadwal_id" => $jadwal->id,
+            "expired_at" => $qr->expired_at
+        ]);
+    }
 
 
     public function scanQr(Request $request)

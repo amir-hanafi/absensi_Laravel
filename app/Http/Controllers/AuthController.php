@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\HasApiTokens;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Guru;
+
 
 class AuthController extends Controller
 {
@@ -76,30 +78,21 @@ class AuthController extends Controller
         $identifier = $request->identifier;
         $user = null;
 
-        // =====================
-        // ADMIN (username)
-        // =====================
+        // ADMIN
         $user = User::where('username', $identifier)->first();
 
-        // =====================
-        // GURU (kode_guru)
-        // =====================
+        // GURU
         if (!$user) {
             $guru = Guru::where('kode_guru', $identifier)->first();
             $user = $guru?->user;
         }
 
-        // =====================
-        // SISWA (nis)
-        // =====================
+        // SISWA
         if (!$user) {
             $siswa = Siswa::where('nis', $identifier)->first();
             $user = $siswa?->user;
         }
 
-        // =====================
-        // VALIDASI PASSWORD
-        // =====================
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'success' => false,
@@ -107,10 +100,12 @@ class AuthController extends Controller
             ], 401);
         }
 
-        // ✅ TIDAK ADA FILTER ROLE DI API
+        // 🔑 BUAT TOKEN SANCTUM
+        $token = $user->createToken('flutter-token')->plainTextToken;
 
         return response()->json([
             'success' => true,
+            'token' => $token,
             'user' => [
                 'id' => $user->id,
                 'username' => $user->username,
@@ -129,7 +124,7 @@ class AuthController extends Controller
 
     public function apiLogout(Request $request)
     {
-        Auth::logout();
+        $request->user()->currentAccessToken()->delete();
 
         return response()->json([
             'success' => true,
@@ -137,4 +132,3 @@ class AuthController extends Controller
         ]);
     }
 }
-

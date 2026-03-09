@@ -11,13 +11,13 @@ return new class extends Migration
         Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
 
-            $table->date('tanggal');
-
             $table->string('hari');
 
-            $table->time('jam_mulai');
+            $table->integer('jam_ke');
 
-            $table->time('jam_selesai');
+            $table->foreignId('kelas_id')
+                ->constrained('kelas')
+                ->cascadeOnDelete();
 
             $table->foreignId('guru_id')
                 ->constrained('guru')
@@ -25,10 +25,6 @@ return new class extends Migration
 
             $table->foreignId('matapel_id')
                 ->constrained('matapel')
-                ->cascadeOnDelete();
-
-            $table->foreignId('kelas_id')
-                ->constrained('kelas')
                 ->cascadeOnDelete();
 
             $table->timestamps();

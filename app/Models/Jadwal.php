@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jadwal extends Model
 {
-    protected $table = 'jadwal';
-
+    protected $table = 'jadwal'; 
     protected $fillable = [
-        'tanggal',
+        'hari',
+        'jam_ke',
         'guru_id',
-        'matapel_id'
+        'matapel_id',
+        'kelas_id'
     ];
 
     public function guru()
@@ -22,5 +23,20 @@ class Jadwal extends Model
     public function matapel()
     {
         return $this->belongsTo(Matapel::class);
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function qrTokens()
+    {
+        return $this->hasMany(QrToken::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }
