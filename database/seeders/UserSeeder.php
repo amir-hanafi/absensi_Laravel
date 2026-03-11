@@ -40,6 +40,16 @@ class UserSeeder extends Seeder
             'password' => Hash::make('siswa123'),
             'role'     => 'siswa',
         ]);
+        $siswaUser = User::create([
+            'username' => 'siswa02',
+            'password' => Hash::make('siswa123'),
+            'role'     => 'siswa',
+        ]);
+        $siswaUser = User::create([
+            'username' => 'siswa03',
+            'password' => Hash::make('siswa123'),
+            'role'     => 'siswa',
+        ]);
 
     }
 }

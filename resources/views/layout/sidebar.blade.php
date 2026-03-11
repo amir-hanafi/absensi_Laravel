@@ -13,7 +13,7 @@
                         <div class="dropdown" data-display="static">
                             <a href="#" class="nav-link d-flex user-switch-dropdown-toggler"
                                 id="UsersettingsDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                                <small class="designation text-muted">Admin</small>
+                                {{-- <small class="designation text-muted">Admin</small> --}}
                                 <span class="status-indicator online"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="UsersettingsDropdown">
@@ -43,81 +43,42 @@
                 </button>
             </div>
         </li>
-        <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url('/') }}">
+        <li class="nav-item {{ request()->is('/dashboard') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/dashboard') }}">
                 <i class="menu-icon mdi mdi-television"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item {{ request()->is('basic-ui/*') ? 'active' : '' }}">
-            <a class="nav-link" data-toggle="collapse" href="#basic-ui"
-                aria-expanded="{{ request()->is('basic-ui/*') ? 'true' : 'false' }}" aria-controls="basic-ui">
-                <i class="menu-icon mdi mdi-dna"></i>
-                <span class="menu-title">Basic UI Elements</span>
-                <i class="menu-arrow"></i>
+
+        <li class="nav-item {{ request()->is('jadwal*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('jadwal.index') }}">
+                <i class="menu-icon mdi mdi-table-large"></i>
+                <span class="menu-title">CRUD Jadwal</span>
             </a>
-            <div class="collapse {{ request()->is('basic-ui/*') ? 'show' : '' }}" id="basic-ui">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item {{ request()->is('basic-ui/buttons') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/basic-ui/buttons') }}">Buttons</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('basic-ui/dropdowns') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/basic-ui/dropdowns') }}">Dropdowns</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('basic-ui/typography') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/basic-ui/typography') }}">Typography</a>
-                    </li>
-                </ul>
-            </div>
         </li>
 
-        <li class="nav-item {{ request()->is('charts/chartjs') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url('/charts/chartjs') }}">
-                <i class="menu-icon mdi mdi-chart-line"></i>
-                <span class="menu-title">Charts</span>
+        <li class="nav-item {{ request()->is('assessment-categories*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/assessment-categories') }}">
+                <i class="menu-icon mdi mdi-format-list-bulleted"></i>
+                <span class="menu-title">Kategori Penilaian</span>
             </a>
         </li>
-        <li class="nav-item {{ request()->is('tables/basic-table') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url('/tables/basic-table') }}">
+
+        <li class="nav-item {{ request()->is('penilaian/siswa') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/penilaian/siswa') }}">
                 <i class="menu-icon mdi mdi-table-large"></i>
-                <span class="menu-title">Tables</span>
+                <span class="menu-title">Penilaian</span>
             </a>
         </li>
-        <li class="nav-item {{ request()->is('icons/material') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url('/icons/material') }}">
-                <i class="menu-icon mdi mdi-emoticon"></i>
-                <span class="menu-title">Icons</span>
+
+        <li class="nav-item {{ request()->is('laporan*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/laporan') }}">
+                <i class="menu-icon mdi mdi-table-large"></i>
+                <span class="menu-title">Laporan Penilaian</span>
             </a>
         </li>
-        <li class="nav-item {{ request()->is('user-pages/*') ? 'active' : '' }}">
-            <a class="nav-link" data-toggle="collapse" href="#user-pages"
-                aria-expanded="{{ request()->is('basic-ui/*') ? 'true' : 'false' }}" aria-controls="user-pages">
-                <i class="menu-icon mdi mdi-lock-outline"></i>
-                <span class="menu-title">User Pages</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse {{ request()->is('user-pages/*') ? 'show' : '' }}" id="user-pages">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item {{ request()->is('user-pages/login') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/user-pages/login') }}">Login</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('user-pages/register') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/user-pages/register') }}">Register</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('user-pages/lock-screen') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/user-pages/lock-screen') }}">Lock Screen</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"
-                href="https://www.bootstrapdash.com/demo/star-laravel-free/documentation/documentation.html"
-                target="_blank">
-                <i class="menu-icon mdi mdi-file-outline"></i>
-                <span class="menu-title">Documentation</span>
-            </a>
-        </li>
+
+
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf

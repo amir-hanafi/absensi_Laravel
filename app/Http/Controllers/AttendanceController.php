@@ -52,9 +52,9 @@ class AttendanceController extends Controller
 
         $places = Place::all();
 
-        $status = "invalid";
         $distance = null;
         $placeName = null;
+        $isValid = false;
 
         foreach ($places as $place) {
 
@@ -66,11 +66,18 @@ class AttendanceController extends Controller
             );
 
             if ($currentDistance <= $place->allowed_radius) {
-                $status = "valid";
+                $isValid = true;
                 $distance = $currentDistance;
                 $placeName = $place->name;
                 break;
             }
+        }
+
+        if (!$isValid) {
+            return response()->json([
+                "status" => "rejected",
+                "message" => "Diluar radius absensi"
+            ], 403);
         }
 
         if ($distance === null) {
@@ -91,16 +98,14 @@ class AttendanceController extends Controller
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'distance' => $distance,
-            'status' => $status,
+            'status' => 'valid',
             'scan_time' => now()
         ]);
 
         return response()->json([
-            "status" => $status,
+            "status" => "valid",
             "distance" => $distance,
-            "message" => $status == "valid"
-                ? "Absensi berhasil di $placeName"
-                : "Diluar radius semua tempat"
+            "message" => "Absensi berhasil di $placeName"
         ]);
     }
 

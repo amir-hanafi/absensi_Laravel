@@ -23,6 +23,7 @@ class JadwalSekolahSeeder extends Seeder
             ["08:30:00", "09:15:00"],
             ["09:30:00", "10:15:00"],
             ["10:15:00", "11:00:00"],
+            ["11:00:00", "23:00:00"],
         ];
 
         foreach ($hariList as $hari) {

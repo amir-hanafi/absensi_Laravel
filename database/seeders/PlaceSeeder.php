@@ -13,7 +13,7 @@ class PlaceSeeder extends Seeder
             'name' => 'Sekolah kampus 1',
             'latitude' => -6.825291182355525,
             'longitude' => 107.1370873337728,
-            'allowed_radius' => 100
+            'allowed_radius' => 300
         ]);
 
         Place::create([

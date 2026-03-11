@@ -18,13 +18,14 @@ class SiswaSeeder extends Seeder
             return;
         }
 
+        $nisCounter = 1;
+
         foreach ($siswaUsers as $index => $user) {
 
-            // Pilih kelas secara bergilir
             $kelas = $kelasList[$index % $kelasList->count()];
 
             Siswa::create([
-                'nis'      => 'NIS' . str_pad($index + 1, 4, '0', STR_PAD_LEFT),
+                'nis'      => 'NIS' . str_pad($nisCounter++, 4, '0', STR_PAD_LEFT),
                 'nama'     => 'Siswa ' . ($index + 1),
                 'kelas_id' => $kelas->id,
                 'user_id'  => $user->id,

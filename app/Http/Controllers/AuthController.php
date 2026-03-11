@@ -56,11 +56,11 @@ class AuthController extends Controller
         // =====================
         // 🔐 FILTER ROLE ADMIN
         // =====================
-        if ($user->role !== 'admin') {
-            return back()->withErrors([
-                'login' => 'Akun ini tidak memiliki akses ke Admin Panel'
-            ]);
-        }
+        // if ($user->role !== 'admin') {
+        //     return back()->withErrors([
+        //         'login' => 'Akun ini tidak memiliki akses ke Admin Panel'
+        //     ]);
+        // }
 
         Auth::login($user);
         $request->session()->regenerate();
