@@ -10,13 +10,24 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Matapel;
 
+/**
+ * @class JadwalController
+ * @brief Controller untuk mengelola jadwal pelajaran.
+ *
+ * Menyediakan CRUD (Create, Read, Update, Delete) jadwal
+ * serta API untuk mendapatkan jadwal sekarang berdasarkan waktu.
+ */
 class JadwalController extends Controller
 {
-
     // ========================
     // CRUD JADWAL
     // ========================
 
+    /**
+     * @brief Menampilkan daftar seluruh jadwal.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $jadwal = Jadwal::with(['guru','kelas','matapel'])->get();
@@ -24,6 +35,11 @@ class JadwalController extends Controller
         return view('jadwal.index', compact('jadwal'));
     }
 
+    /**
+     * @brief Menampilkan form untuk menambahkan jadwal baru.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $guru = Guru::all();
@@ -33,6 +49,12 @@ class JadwalController extends Controller
         return view('jadwal.create', compact('guru','kelas','matapel'));
     }
 
+    /**
+     * @brief Menyimpan jadwal baru ke database.
+     *
+     * @param Request $request Objek request berisi data jadwal
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -49,6 +71,12 @@ class JadwalController extends Controller
             ->with('success','Jadwal berhasil ditambahkan');
     }
 
+    /**
+     * @brief Menampilkan detail jadwal tertentu.
+     *
+     * @param int $id ID jadwal
+     * @return \Illuminate\View\View
+     */
     public function show($id)
     {
         $jadwal = Jadwal::with(['guru','kelas','matapel'])->findOrFail($id);
@@ -56,6 +84,12 @@ class JadwalController extends Controller
         return view('jadwal.show', compact('jadwal'));
     }
 
+    /**
+     * @brief Menampilkan form edit jadwal.
+     *
+     * @param int $id ID jadwal
+     * @return \Illuminate\View\View
+     */
     public function edit($id)
     {
         $jadwal = Jadwal::findOrFail($id);
@@ -66,6 +100,13 @@ class JadwalController extends Controller
         return view('jadwal.edit', compact('jadwal','guru','kelas','matapel'));
     }
 
+    /**
+     * @brief Memperbarui jadwal di database.
+     *
+     * @param Request $request Objek request berisi data baru
+     * @param int $id ID jadwal
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         $jadwal = Jadwal::findOrFail($id);
@@ -76,6 +117,12 @@ class JadwalController extends Controller
             ->with('success','Jadwal berhasil diupdate');
     }
 
+    /**
+     * @brief Menghapus jadwal dari database.
+     *
+     * @param int $id ID jadwal
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         $jadwal = Jadwal::findOrFail($id);
@@ -86,9 +133,18 @@ class JadwalController extends Controller
     }
 
     // ========================
-    // API ABSENSI (SUDAH ADA)
+    // API ABSENSI
     // ========================
 
+    /**
+     * @brief Mendapatkan jadwal sekarang untuk absensi berbasis API.
+     *
+     * Menentukan jadwal berdasarkan:
+     * - Hari ini
+     * - Waktu saat ini (jam_mulai <= sekarang <= jam_selesai)
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sekarang()
     {
         $hariMap = [

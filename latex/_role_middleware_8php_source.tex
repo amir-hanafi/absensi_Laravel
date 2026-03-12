@@ -1,0 +1,33 @@
+\doxysection{Role\+Middleware.\+php}
+\hypertarget{_role_middleware_8php_source}{}\label{_role_middleware_8php_source}\index{app/Http/Middleware/RoleMiddleware.php@{app/Http/Middleware/RoleMiddleware.php}}
+\doxymbox{\hyperlink{_role_middleware_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Http\(\backslash\)Middleware;}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00005}00005\ use\ Closure;}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00006}00006\ use\ Illuminate\(\backslash\)Http\(\backslash\)Request;}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00007}00007\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Auth;}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00008}00008\ use\ Symfony\(\backslash\)Component\(\backslash\)HttpFoundation\(\backslash\)Response;}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00018}00018\ \textcolor{keyword}{class\ }RoleMiddleware}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00019}00019\ \{}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00029}00029\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ handle(Request\ \$request,\ Closure\ \$next,\ \$role):\ Response}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00030}00030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cek\ apakah\ user\ sudah\ login}}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!Auth::check())\ \{}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ redirect(\textcolor{stringliteral}{'/login'});}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cek\ apakah\ role\ sesuai}}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Auth::user()-\/>role\ !==\ \$role)\ \{}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ abort(403,\ \textcolor{stringliteral}{'Anda\ tidak\ memiliki\ akses\ ke\ halaman\ ini'});}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lanjutkan\ request}}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$next(\$request);}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00043}00043\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_role_middleware_8php_source_l00044}00044\ \}}
+
+\end{DoxyCode}

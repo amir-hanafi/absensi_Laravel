@@ -1,0 +1,41 @@
+\doxysection{2026\+\_\+02\+\_\+03\+\_\+065603\+\_\+create\+\_\+personal\+\_\+access\+\_\+tokens\+\_\+table.\+php}
+\hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source}{}\label{2026__02__03__065603__create__personal__access__tokens__table_8php_source}\index{database/migrations/2026\_02\_03\_065603\_create\_personal\_access\_tokens\_table.php@{database/migrations/2026\_02\_03\_065603\_create\_personal\_access\_tokens\_table.php}}
+\doxymbox{\hyperlink{2026__02__03__065603__create__personal__access__tokens__table_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Database\(\backslash\)Migrations\(\backslash\)Migration;}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Database\(\backslash\)Schema\(\backslash\)Blueprint;}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schema;}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00015}00015\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keyword}{class\ }extends\ Migration}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00032}00032\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ up():\ void}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00033}00033\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'personal\_access\_tokens'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>id();}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>morphs(\textcolor{stringliteral}{'tokenable'});}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>text(\textcolor{stringliteral}{'name'});}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'token'},\ 64)-\/>unique();}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>text(\textcolor{stringliteral}{'abilities'})-\/>nullable();}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>timestamp(\textcolor{stringliteral}{'last\_used\_at'})-\/>nullable();}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>timestamp(\textcolor{stringliteral}{'expires\_at'})-\/>nullable()-\/>index();}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>timestamps();}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00060}00060\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00070}00070\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ down():\ void}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00072}00072\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'personal\_access\_tokens'});}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__02__03__065603__create__personal__access__tokens__table_8php_source_l00074}00074\ \};}
+
+\end{DoxyCode}

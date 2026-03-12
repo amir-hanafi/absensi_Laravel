@@ -1,0 +1,37 @@
+\doxysection{Guru\+Seeder.\+php}
+\hypertarget{_guru_seeder_8php_source}{}\label{_guru_seeder_8php_source}\index{database/seeders/GuruSeeder.php@{database/seeders/GuruSeeder.php}}
+\doxymbox{\hyperlink{_guru_seeder_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }Database\(\backslash\)Seeders;}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Seeder;}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00006}00006\ use\ App\(\backslash\)Models\(\backslash\)User;}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00007}00007\ use\ App\(\backslash\)Models\(\backslash\)Guru;}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00009}00009\ \textcolor{keyword}{class\ }GuruSeeder\ \textcolor{keyword}{extends}\ Seeder}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ run():\ void}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00013}00013\ \ \ \ \ \ \ \ \ \$guruUsers\ =\ User::where(\textcolor{stringliteral}{'role'},\ \textcolor{stringliteral}{'guru'})-\/>get();}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$guruUsers-\/>isEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00019}00019\ \ \ \ \ \ \ \ \ \$no\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$guruUsers\ as\ \$user)\ \{}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ Guru::create([}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'kode\_guru'}\ =>\ \textcolor{stringliteral}{'GR-\/'}\ .\ str\_pad(\$no++,\ 3,\ \textcolor{charliteral}{'0'},\ STR\_PAD\_LEFT),}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nama'}\ \ \ \ \ \ =>\ \$user-\/>username,}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'no\_hp'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'08123456780'},}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'user\_id'}\ \ \ =>\ \$user-\/>id,}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00030}00030\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_seeder_8php_source_l00031}00031\ \}}
+
+\end{DoxyCode}

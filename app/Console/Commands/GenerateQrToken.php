@@ -8,14 +8,35 @@ use App\Models\Jadwal;
 use App\Models\JadwalSekolah;
 use Illuminate\Support\Str;
 
+/**
+ * @class GenerateQrToken
+ * @brief Command Artisan untuk membuat token QR otomatis untuk jadwal yang sedang aktif
+ */
 class GenerateQrToken extends Command
 {
+    /**
+     * @brief Signature command Artisan
+     */
     protected $signature = 'app:generate-qr-token';
 
+    /**
+     * @brief Deskripsi command
+     */
     protected $description = 'Generate QR token untuk jadwal aktif';
 
+    /**
+     * @brief Eksekusi command
+     * 
+     * Logic:
+     *  - Cek hari & jam sekarang
+     *  - Cari jam pelajaran aktif
+     *  - Ambil semua jadwal untuk jam tersebut
+     *  - Hapus token lama
+     *  - Buat token baru dengan masa berlaku 5 menit
+     */
     public function handle()
     {
+        // Mapping nama hari
         $hariMap = [
             'Monday' => 'Senin',
             'Tuesday' => 'Selasa',
@@ -29,7 +50,7 @@ class GenerateQrToken extends Command
         $today = $hariMap[now()->format('l')];
         $now = now()->format('H:i:s');
 
-        // cari jam pelajaran sekarang
+        // Cari jam pelajaran aktif
         $jamSekarang = JadwalSekolah::where('hari', $today)
             ->where('jam_mulai', '<=', $now)
             ->where('jam_selesai', '>=', $now)
@@ -40,7 +61,7 @@ class GenerateQrToken extends Command
             return 0;
         }
 
-        // ambil semua jadwal kelas pada jam tersebut
+        // Ambil semua jadwal untuk jam aktif
         $jadwals = Jadwal::where('hari', $today)
             ->where('jam_ke', $jamSekarang->jam_ke)
             ->get();
@@ -49,8 +70,10 @@ class GenerateQrToken extends Command
 
         foreach ($jadwals as $jadwal) {
 
+            // Hapus token lama
             QrToken::where('jadwal_id', $jadwal->id)->delete();
 
+            // Buat token baru
             QrToken::create([
                 'jadwal_id' => $jadwal->id,
                 'token' => Str::random(40),

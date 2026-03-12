@@ -1,0 +1,45 @@
+\doxysection{web.\+php}
+\hypertarget{web_8php_source}{}\label{web_8php_source}\index{routes/web.php@{routes/web.php}}
+\doxymbox{\hyperlink{web_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Route;}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00004}00004\ use\ App\(\backslash\)Http\(\backslash\)Controllers\(\backslash\)AuthController;}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00005}00005\ use\ App\(\backslash\)Http\(\backslash\)Controllers\(\backslash\)JadwalController;}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00006}00006\ use\ App\(\backslash\)Http\(\backslash\)Controllers\(\backslash\)AssessmentCategoryController;}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00007}00007\ use\ App\(\backslash\)Http\(\backslash\)Controllers\(\backslash\)AssessmentController;}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00019}00019\ Route::middleware(\textcolor{stringliteral}{'guest'})-\/>group(\textcolor{keyword}{function}\ ()\ \{}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00021}00021\ \ \ \ \ Route::get(\textcolor{stringliteral}{'/login'},\ fn()\ =>\ view(\textcolor{stringliteral}{'auth.login'}))-\/>name(\textcolor{stringliteral}{'login'});}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00024}00024\ \ \ \ \ Route::post(\textcolor{stringliteral}{'/login'},\ [AuthController::class,\ \textcolor{stringliteral}{'login'}]);}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00025}00025\ \});}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00031}00031\ \textcolor{comment}{//\ Route::middleware(['auth',\ 'role:admin'])-\/>group(function\ ()\ \{}}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00032}00032\ \textcolor{comment}{//\ \ \ \ \ /**\ @brief\ Dashboard\ admin\ */}}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00033}00033\ \textcolor{comment}{//\ \ \ \ \ Route::get('/dashboard',\ fn\ ()\ =>\ view('dashboard'))-\/>name('dashboard');}}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00034}00034\ \textcolor{comment}{//\ \ \ \ \ /**\ @brief\ Logout\ user\ */}}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00035}00035\ \textcolor{comment}{//\ \ \ \ \ Route::post('/logout',\ [AuthController::class,\ 'logout'])-\/>name('logout');}}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00036}00036\ \textcolor{comment}{//\ \});}}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00039}00039\ Route::get(\textcolor{stringliteral}{'/dashboard'},\ fn()\ =>\ view(\textcolor{stringliteral}{'dashboard'}))-\/>name(\textcolor{stringliteral}{'dashboard'});}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00042}00042\ Route::post(\textcolor{stringliteral}{'/logout'},\ [AuthController::class,\ \textcolor{stringliteral}{'logout'}])-\/>name(\textcolor{stringliteral}{'logout'});}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00045}00045\ Route::resource(\textcolor{stringliteral}{'jadwal'},\ JadwalController::class);}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00048}00048\ Route::resource(\textcolor{stringliteral}{'assessment-\/categories'},\ AssessmentCategoryController::class);}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00051}00051\ Route::get(\textcolor{stringliteral}{'/penilaian/siswa'},\ [AssessmentController::class,\ \textcolor{stringliteral}{'daftarSiswa'}]);}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00054}00054\ Route::get(\textcolor{stringliteral}{'/penilaian/\{id\}'},\ [AssessmentController::class,\ \textcolor{stringliteral}{'create'}]);}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00057}00057\ Route::post(\textcolor{stringliteral}{'/penilaian'},\ [AssessmentController::class,\ \textcolor{stringliteral}{'store'}]);}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00060}00060\ Route::get(\textcolor{stringliteral}{'/laporan'},\ [AssessmentController::class,\textcolor{stringliteral}{'indexLaporan'}]);}
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{web_8php_source_l00063}00063\ Route::get(\textcolor{stringliteral}{'/laporan/\{siswa\}'},\ [AssessmentController::class,\textcolor{stringliteral}{'laporan'}]);}
+
+\end{DoxyCode}

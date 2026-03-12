@@ -1,0 +1,35 @@
+\doxysection{0001\+\_\+01\+\_\+01\+\_\+000001\+\_\+create\+\_\+cache\+\_\+table.\+php}
+\hypertarget{0001__01__01__000001__create__cache__table_8php_source}{}\label{0001__01__01__000001__create__cache__table_8php_source}\index{database/migrations/0001\_01\_01\_000001\_create\_cache\_table.php@{database/migrations/0001\_01\_01\_000001\_create\_cache\_table.php}}
+\doxymbox{\hyperlink{0001__01__01__000001__create__cache__table_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Database\(\backslash\)Migrations\(\backslash\)Migration;}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Database\(\backslash\)Schema\(\backslash\)Blueprint;}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schema;}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00007}00007\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keyword}{class\ }extends\ Migration}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ up():\ void}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00014}00014\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'cache'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'key'})-\/>primary();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>mediumText(\textcolor{stringliteral}{'value'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'expiration'})-\/>index();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00018}00018\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00020}00020\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'cache\_locks'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'key'})-\/>primary();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'owner'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'expiration'})-\/>index();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00025}00025\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ down():\ void}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00031}00031\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'cache'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'cache\_locks'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00034}00034\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000001__create__cache__table_8php_source_l00035}00035\ \};}
+
+\end{DoxyCode}

@@ -13,10 +13,21 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use Carbon\Carbon;
 
-
+/**
+ * @class AssessmentController
+ * @brief Controller untuk mengelola proses penilaian siswa.
+ *
+ * Controller ini menyediakan fungsi untuk menampilkan daftar siswa,
+ * membuat penilaian, menyimpan hasil penilaian, dan menampilkan laporan
+ * penilaian berdasarkan periode harian, mingguan, atau bulanan.
+ */
 class AssessmentController extends Controller
 {
-    //
+    /**
+     * @brief Menampilkan daftar semua siswa beserta status penilaian bulan ini.
+     *
+     * @return \Illuminate\View\View
+     */
     public function daftarSiswa()
     {
         $siswa = Siswa::with(['kelas.guru'])->get();
@@ -40,6 +51,12 @@ class AssessmentController extends Controller
         ));
     }
 
+    /**
+     * @brief Menampilkan form penilaian untuk siswa tertentu.
+     *
+     * @param int $id ID siswa
+     * @return \Illuminate\View\View
+     */
     public function create($id)
     {
         $siswa = Siswa::with('kelas')->findOrFail($id);
@@ -48,6 +65,12 @@ class AssessmentController extends Controller
         return view('assessment.form_penilaian', compact('siswa', 'categories'));
     }
 
+    /**
+     * @brief Menyimpan penilaian siswa ke database.
+     *
+     * @param Request $request Objek request berisi data penilaian
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $guru = Auth::user()->guru;
@@ -61,7 +84,6 @@ class AssessmentController extends Controller
         ]);
 
         foreach ($request->score as $category_id => $score) {
-
             AssessmentDetail::create([
                 'assessment_id' => $assessment->id,
                 'category_id' => $category_id,
@@ -73,9 +95,15 @@ class AssessmentController extends Controller
             ->with('success', 'Penilaian berhasil disimpan');
     }
 
+    /**
+     * @brief Menampilkan laporan penilaian untuk siswa tertentu berdasarkan periode.
+     *
+     * @param Request $request Objek request yang berisi parameter periode
+     * @param int $id ID siswa
+     * @return \Illuminate\View\View
+     */
     public function laporan(Request $request, $id)
     {
-
         $siswa = Siswa::with('kelas')->findOrFail($id);
 
         $query = Assessment::where('siswa_id', $id)
@@ -98,13 +126,12 @@ class AssessmentController extends Controller
         $labels = [];
         $scores = [];
 
-        $categories = \App\Models\AssessmentCategory::all();
+        $categories = AssessmentCategory::all();
 
         foreach ($categories as $category) {
-
             $labels[] = $category->name;
 
-            $avg = \App\Models\AssessmentDetail::whereHas('assessment', function ($q) use ($siswa) {
+            $avg = AssessmentDetail::whereHas('assessment', function ($q) use ($siswa) {
                 $q->where('siswa_id', $siswa->id);
             })
                 ->where('category_id', $category->id)
@@ -121,9 +148,13 @@ class AssessmentController extends Controller
         ));
     }
 
+    /**
+     * @brief Menampilkan daftar laporan semua siswa beserta status penilaian bulan ini.
+     *
+     * @return \Illuminate\View\View
+     */
     public function indexLaporan()
     {
-
         $siswa = Siswa::with('kelas')->get();
 
         $bulan = Carbon::now()->month;

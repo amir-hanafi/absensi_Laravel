@@ -1,0 +1,37 @@
+\doxysection{2026\+\_\+01\+\_\+30\+\_\+090008\+\_\+create\+\_\+guru\+\_\+matapel\+\_\+table.\+php}
+\hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source}{}\label{2026__01__30__090008__create__guru__matapel__table_8php_source}\index{database/migrations/2026\_01\_30\_090008\_create\_guru\_matapel\_table.php@{database/migrations/2026\_01\_30\_090008\_create\_guru\_matapel\_table.php}}
+\doxymbox{\hyperlink{2026__01__30__090008__create__guru__matapel__table_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Database\(\backslash\)Migrations\(\backslash\)Migration;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Database\(\backslash\)Schema\(\backslash\)Blueprint;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schema;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00016}00016\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keyword}{class\ }extends\ Migration}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00032}00032\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ up():\ void}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00033}00033\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'guru\_matapel'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>id();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>foreignId(\textcolor{stringliteral}{'guru\_id'})}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>constrained(\textcolor{stringliteral}{'guru'})}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>cascadeOnDelete();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>foreignId(\textcolor{stringliteral}{'matapel\_id'})}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>constrained(\textcolor{stringliteral}{'matapel'})}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>cascadeOnDelete();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>timestamps();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00064}00064\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ down():\ void}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00065}00065\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'guru\_matapel'});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090008__create__guru__matapel__table_8php_source_l00068}00068\ \};}
+
+\end{DoxyCode}

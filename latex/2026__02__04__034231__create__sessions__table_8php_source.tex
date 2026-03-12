@@ -1,0 +1,37 @@
+\doxysection{2026\+\_\+02\+\_\+04\+\_\+034231\+\_\+create\+\_\+sessions\+\_\+table.\+php}
+\hypertarget{2026__02__04__034231__create__sessions__table_8php_source}{}\label{2026__02__04__034231__create__sessions__table_8php_source}\index{database/migrations/2026\_02\_04\_034231\_create\_sessions\_table.php@{database/migrations/2026\_02\_04\_034231\_create\_sessions\_table.php}}
+\doxymbox{\hyperlink{2026__02__04__034231__create__sessions__table_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Database\(\backslash\)Migrations\(\backslash\)Migration;}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Database\(\backslash\)Schema\(\backslash\)Blueprint;}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schema;}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00014}00014\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keyword}{class\ }extends\ Migration}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00029}00029\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ up():\ void}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00030}00030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'sessions'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'id'})-\/>primary();}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>foreignId(\textcolor{stringliteral}{'user\_id'})-\/>nullable()-\/>index();}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'ip\_address'},\ 45)-\/>nullable();}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>text(\textcolor{stringliteral}{'user\_agent'})-\/>nullable();}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>longText(\textcolor{stringliteral}{'payload'});}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'last\_activity'})-\/>index();}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00061}00061\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ down():\ void}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00062}00062\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00063}00063\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'sessions'});}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__02__04__034231__create__sessions__table_8php_source_l00065}00065\ \};}
+
+\end{DoxyCode}

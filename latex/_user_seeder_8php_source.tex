@@ -1,0 +1,61 @@
+\doxysection{User\+Seeder.\+php}
+\hypertarget{_user_seeder_8php_source}{}\label{_user_seeder_8php_source}\index{database/seeders/UserSeeder.php@{database/seeders/UserSeeder.php}}
+\doxymbox{\hyperlink{_user_seeder_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }Database\(\backslash\)Seeders;}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Seeder;}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00006}00006\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Hash;}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00007}00007\ use\ App\(\backslash\)Models\(\backslash\)User;}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00009}00009\ \textcolor{keyword}{class\ }UserSeeder\ \textcolor{keyword}{extends}\ Seeder}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ run():\ void}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =====================}}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ADMIN}}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ =====================}}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00016}00016\ \ \ \ \ \ \ \ \ \$admin\ =\ User::create([}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'admin'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'password'}\ =>\ Hash::make(\textcolor{stringliteral}{'admin123'}),}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'admin'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00020}00020\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00022}00022\ \ \ \ \ \ \ \ \ \$guruUser\ =\ User::create([}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'guru01'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'password'}\ =>\ Hash::make(\textcolor{stringliteral}{'guru123'}),}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'guru'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \$guruUser\ =\ User::create([}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'guru02'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'password'}\ =>\ Hash::make(\textcolor{stringliteral}{'guru123'}),}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'guru'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \$guruUser\ =\ User::create([}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'guru03'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'password'}\ =>\ Hash::make(\textcolor{stringliteral}{'guru123'}),}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'guru'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \$siswaUser\ =\ User::create([}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'siswa01'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'password'}\ =>\ Hash::make(\textcolor{stringliteral}{'siswa123'}),}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'siswa'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \$siswaUser\ =\ User::create([}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'siswa02'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'password'}\ =>\ Hash::make(\textcolor{stringliteral}{'siswa123'}),}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'siswa'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \$siswaUser\ =\ User::create([}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'username'}\ =>\ \textcolor{stringliteral}{'siswa03'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'password'}\ =>\ Hash::make(\textcolor{stringliteral}{'siswa123'}),}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'role'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'siswa'},}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_user_seeder_8php_source_l00055}00055\ \}}
+
+\end{DoxyCode}

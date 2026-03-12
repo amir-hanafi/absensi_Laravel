@@ -10,9 +10,26 @@ use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Guru;
 
-
+/**
+ * @class AuthController
+ * @brief Controller untuk proses autentikasi pengguna (login/logout) baik web maupun API.
+ *
+ * Menangani login berbasis username, NIS (siswa), kode_guru (guru),
+ * validasi password, pembuatan token API (Sanctum), dan logout.
+ */
 class AuthController extends Controller
 {
+    /**
+     * @brief Melakukan login pengguna melalui web.
+     *
+     * Mendukung login menggunakan:
+     * - username (admin)
+     * - kode_guru (guru)
+     * - nis (siswa)
+     *
+     * @param Request $request Objek request berisi 'identifier' dan 'password'
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -53,21 +70,25 @@ class AuthController extends Controller
             ]);
         }
 
-        // =====================
-        // 🔐 FILTER ROLE ADMIN
-        // =====================
-        // if ($user->role !== 'admin') {
-        //     return back()->withErrors([
-        //         'login' => 'Akun ini tidak memiliki akses ke Admin Panel'
-        //     ]);
-        // }
-
         Auth::login($user);
         $request->session()->regenerate();
 
         return redirect()->route('dashboard');
     }
 
+    /**
+     * @brief Melakukan login pengguna melalui API (Sanctum).
+     *
+     * Mendukung login menggunakan:
+     * - username (admin)
+     * - kode_guru (guru)
+     * - nis (siswa)
+     *
+     * Jika berhasil, menghasilkan token API untuk digunakan oleh Flutter atau aplikasi lain.
+     *
+     * @param Request $request Objek request berisi 'identifier' dan 'password'
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function apiLogin(Request $request)
     {
         $request->validate([
@@ -114,14 +135,27 @@ class AuthController extends Controller
         ]);
     }
 
-
-
+    /**
+     * @brief Logout pengguna dari sesi web.
+     *
+     * Menghapus sesi login dan mengarahkan kembali ke halaman login.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout()
     {
         Auth::logout();
         return redirect('/login');
     }
 
+    /**
+     * @brief Logout pengguna dari API (Sanctum).
+     *
+     * Menghapus token API saat ini sehingga pengguna tidak bisa lagi menggunakan token tersebut.
+     *
+     * @param Request $request Objek request dari API
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function apiLogout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();

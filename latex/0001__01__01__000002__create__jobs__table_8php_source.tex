@@ -1,0 +1,57 @@
+\doxysection{0001\+\_\+01\+\_\+01\+\_\+000002\+\_\+create\+\_\+jobs\+\_\+table.\+php}
+\hypertarget{0001__01__01__000002__create__jobs__table_8php_source}{}\label{0001__01__01__000002__create__jobs__table_8php_source}\index{database/migrations/0001\_01\_01\_000002\_create\_jobs\_table.php@{database/migrations/0001\_01\_01\_000002\_create\_jobs\_table.php}}
+\doxymbox{\hyperlink{0001__01__01__000002__create__jobs__table_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Database\(\backslash\)Migrations\(\backslash\)Migration;}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Database\(\backslash\)Schema\(\backslash\)Blueprint;}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schema;}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00007}00007\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keyword}{class\ }extends\ Migration}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ up():\ void}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00014}00014\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'jobs'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>id();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'queue'})-\/>index();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>longText(\textcolor{stringliteral}{'payload'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>unsignedTinyInteger(\textcolor{stringliteral}{'attempts'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>unsignedInteger(\textcolor{stringliteral}{'reserved\_at'})-\/>nullable();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>unsignedInteger(\textcolor{stringliteral}{'available\_at'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>unsignedInteger(\textcolor{stringliteral}{'created\_at'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00022}00022\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'job\_batches'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'id'})-\/>primary();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'name'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'total\_jobs'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'pending\_jobs'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'failed\_jobs'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>longText(\textcolor{stringliteral}{'failed\_job\_ids'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>mediumText(\textcolor{stringliteral}{'options'})-\/>nullable();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'cancelled\_at'})-\/>nullable();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'created\_at'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>integer(\textcolor{stringliteral}{'finished\_at'})-\/>nullable();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'failed\_jobs'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>id();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'uuid'})-\/>unique();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>text(\textcolor{stringliteral}{'connection'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>text(\textcolor{stringliteral}{'queue'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>longText(\textcolor{stringliteral}{'payload'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>longText(\textcolor{stringliteral}{'exception'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>timestamp(\textcolor{stringliteral}{'failed\_at'})-\/>useCurrent();}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ down():\ void}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00052}00052\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'jobs'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'job\_batches'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'failed\_jobs'});}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00056}00056\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{0001__01__01__000002__create__jobs__table_8php_source_l00057}00057\ \};}
+
+\end{DoxyCode}

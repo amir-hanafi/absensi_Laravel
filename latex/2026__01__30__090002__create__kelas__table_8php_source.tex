@@ -1,0 +1,33 @@
+\doxysection{2026\+\_\+01\+\_\+30\+\_\+090002\+\_\+create\+\_\+kelas\+\_\+table.\+php}
+\hypertarget{2026__01__30__090002__create__kelas__table_8php_source}{}\label{2026__01__30__090002__create__kelas__table_8php_source}\index{database/migrations/2026\_01\_30\_090002\_create\_kelas\_table.php@{database/migrations/2026\_01\_30\_090002\_create\_kelas\_table.php}}
+\doxymbox{\hyperlink{2026__01__30__090002__create__kelas__table_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Database\(\backslash\)Migrations\(\backslash\)Migration;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Database\(\backslash\)Schema\(\backslash\)Blueprint;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schema;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00014}00014\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keyword}{class\ }extends\ Migration}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ up():\ void}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00032}00032\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'kelas'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>id();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'nama\_kelas'});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>foreignId(\textcolor{stringliteral}{'guru\_id'})-\/>constrained(\textcolor{stringliteral}{'guru'})-\/>cascadeOnDelete();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>timestamps();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ down():\ void}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00059}00059\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'kelas'});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090002__create__kelas__table_8php_source_l00062}00062\ \};}
+
+\end{DoxyCode}

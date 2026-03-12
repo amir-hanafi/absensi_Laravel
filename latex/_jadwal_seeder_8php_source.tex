@@ -1,0 +1,59 @@
+\doxysection{Jadwal\+Seeder.\+php}
+\hypertarget{_jadwal_seeder_8php_source}{}\label{_jadwal_seeder_8php_source}\index{database/seeders/JadwalSeeder.php@{database/seeders/JadwalSeeder.php}}
+\doxymbox{\hyperlink{_jadwal_seeder_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }Database\(\backslash\)Seeders;}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Seeder;}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00006}00006\ use\ App\(\backslash\)Models\(\backslash\)Jadwal;}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00007}00007\ use\ App\(\backslash\)Models\(\backslash\)Guru;}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00008}00008\ use\ App\(\backslash\)Models\(\backslash\)Matapel;}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00009}00009\ use\ App\(\backslash\)Models\(\backslash\)Kelas;}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00011}00011\ \textcolor{keyword}{class\ }JadwalSeeder\ \textcolor{keyword}{extends}\ Seeder}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ run():\ void}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00014}00014\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \$gurus\ =\ Guru::all();}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00016}00016\ \ \ \ \ \ \ \ \ \$matapels\ =\ Matapel::all();}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \$kelasList\ =\ Kelas::all();}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$gurus-\/>isEmpty()\ ||\ \$matapels-\/>isEmpty()\ ||\ \$kelasList-\/>isEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00021}00021\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \$hariList\ =\ [}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Senin"{}},}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Selasa"{}},}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Rabu"{}},}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Kamis"{}},}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Jumat"{}}}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \$jamList\ =\ [1,2,3,4,5];}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$kelasList\ as\ \$kelas)\ \{}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$hariList\ as\ \$hari)\ \{}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$jamList\ as\ \$jamKe)\ \{}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Jadwal::create([}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hari'}\ =>\ \$hari,}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'jam\_ke'}\ =>\ \$jamKe,}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'guru\_id'}\ =>\ \$gurus-\/>random()-\/>id,}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'matapel\_id'}\ =>\ \$matapels-\/>random()-\/>id,}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'kelas\_id'}\ =>\ \$kelas-\/>id,}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_jadwal_seeder_8php_source_l00053}00053\ \}}
+
+\end{DoxyCode}

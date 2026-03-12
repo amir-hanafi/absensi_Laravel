@@ -7,10 +7,27 @@ use App\Models\Attendance;
 use App\Models\QrToken;
 use App\Models\Place;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Absensi;
 
+/**
+ * @class AttendanceController
+ * @brief Controller untuk mengelola absensi berbasis QR code dan lokasi.
+ *
+ * Controller ini menangani proses scan QR, validasi lokasi siswa,
+ * pembuatan record absensi, dan pembaruan absensi harian.
+ */
 class AttendanceController extends Controller
 {
-
+    /**
+     * @brief Memproses scan QR siswa untuk absensi.
+     *
+     * Validasi token QR, mengecek kadaluarsa, memeriksa jarak
+     * terhadap radius lokasi yang diizinkan, serta menyimpan
+     * data absensi dan status harian siswa.
+     *
+     * @param Request $request Objek request yang berisi token QR, latitude, dan longitude.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function scanQr(Request $request)
     {
         $request->validate([
@@ -91,7 +108,7 @@ class AttendanceController extends Controller
             );
         }
 
-        Attendance::create([
+        $attendance = Attendance::create([
             'qr_token_id' => $token->id,
             'user_id' => $user->id,
             'jadwal_id' => $token->jadwal_id,
@@ -102,6 +119,17 @@ class AttendanceController extends Controller
             'scan_time' => now()
         ]);
 
+        Absensi::updateOrCreate(
+            [
+                'user_id' => $user->id,
+                'tanggal' => now()->toDateString(),
+            ],
+            [
+                'status' => 'Hadir',
+                'attendance_id' => $attendance->id
+            ]
+        );
+
         return response()->json([
             "status" => "valid",
             "distance" => $distance,
@@ -109,9 +137,19 @@ class AttendanceController extends Controller
         ]);
     }
 
+    /**
+     * @brief Menghitung jarak antara dua titik geografis.
+     *
+     * Menggunakan formula Haversine untuk menghitung jarak dalam meter.
+     *
+     * @param float $lat1 Latitude titik pertama
+     * @param float $lon1 Longitude titik pertama
+     * @param float $lat2 Latitude titik kedua
+     * @param float $lon2 Longitude titik kedua
+     * @return float Jarak antara kedua titik dalam meter
+     */
     private function calculateDistance($lat1, $lon1, $lat2, $lon2)
     {
-
         $earthRadius = 6371000;
 
         $dLat = deg2rad($lat2 - $lat1);

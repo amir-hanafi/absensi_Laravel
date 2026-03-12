@@ -1,0 +1,20 @@
+\doxysection{console.\+php}
+\hypertarget{console_8php_source}{}\label{console_8php_source}\index{routes/console.php@{routes/console.php}}
+\doxymbox{\hyperlink{console_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Foundation\(\backslash\)Inspiring;}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Artisan;}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schedule;}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00012}00012\ \textcolor{comment}{//\ Command\ bawaan\ Laravel\ untuk\ menampilkan\ quote\ inspiratif}}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00013}00013\ Artisan::command(\textcolor{stringliteral}{'inspire'},\ \textcolor{keyword}{function}\ ()\ \{}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00014}00014\ \ \ \ \ \$this-\/>comment(Inspiring::quote());}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00015}00015\ \})-\/>purpose(\textcolor{stringliteral}{'Display\ an\ inspiring\ quote'});}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00023}00023\ Schedule::command(\textcolor{stringliteral}{'app:generate-\/qr-\/token'})}
+\DoxyCodeLine{\Hypertarget{console_8php_source_l00024}00024\ \ \ \ \ -\/>everyFiveMinutes();}
+
+\end{DoxyCode}

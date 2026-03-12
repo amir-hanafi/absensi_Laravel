@@ -1,0 +1,30 @@
+\doxysection{Database\+Seeder.\+php}
+\hypertarget{_database_seeder_8php_source}{}\label{_database_seeder_8php_source}\index{database/seeders/DatabaseSeeder.php@{database/seeders/DatabaseSeeder.php}}
+\doxymbox{\hyperlink{_database_seeder_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }Database\(\backslash\)Seeders;}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Seeder;}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00014}00014\ \textcolor{keyword}{class\ }DatabaseSeeder\ \textcolor{keyword}{extends}\ Seeder}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ run():\ void}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00023}00023\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \$this-\/>call([}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ UserSeeder::class,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ GuruSeeder::class,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ KelasSeeder::class,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ SiswaSeeder::class,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ MatapelSeeder::class,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ GuruMatapelSeeder::class,\ \ \ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ JadwalSekolahSeeder::class,\ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ JadwalSeeder::class,\ \ \ \ \ \ /**<\ Seeder\ untuk\ tabel\ jadwal\ (di-\/comment)\ */}}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ PlaceSeeder::class,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ AssessmentCategorySeeder::class,\ /**<\ Seeder\ untuk\ kategori\ penilaian\ (di-\/comment)\ */}}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_database_seeder_8php_source_l00037}00037\ \}}
+
+\end{DoxyCode}

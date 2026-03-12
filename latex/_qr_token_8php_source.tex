@@ -1,0 +1,30 @@
+\doxysection{Qr\+Token.\+php}
+\hypertarget{_qr_token_8php_source}{}\label{_qr_token_8php_source}\index{app/Models/QrToken.php@{app/Models/QrToken.php}}
+\doxymbox{\hyperlink{_qr_token_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Models;}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Eloquent\(\backslash\)Model;}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00015}00015\ \textcolor{keyword}{class\ }QrToken\ \textcolor{keyword}{extends}\ Model}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{protected}\ \$fillable\ =\ [}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'jadwal\_id'},\ }
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'token'},\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expired\_at'}\ }
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00026}00026\ \ \ \ \ ];}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ jadwal()}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00036}00036\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>belongsTo(Jadwal::class);}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00038}00038\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00047}00047\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ attendances()}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00048}00048\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>hasMany(Attendance::class);}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00050}00050\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_qr_token_8php_source_l00051}00051\ \}}
+
+\end{DoxyCode}

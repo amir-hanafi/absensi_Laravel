@@ -1,0 +1,41 @@
+\doxysection{Siswa\+Seeder.\+php}
+\hypertarget{_siswa_seeder_8php_source}{}\label{_siswa_seeder_8php_source}\index{database/seeders/SiswaSeeder.php@{database/seeders/SiswaSeeder.php}}
+\doxymbox{\hyperlink{_siswa_seeder_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }Database\(\backslash\)Seeders;}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Seeder;}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00006}00006\ use\ App\(\backslash\)Models\(\backslash\)User;}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00007}00007\ use\ App\(\backslash\)Models\(\backslash\)Siswa;}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00008}00008\ use\ App\(\backslash\)Models\(\backslash\)Kelas;}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00010}00010\ \textcolor{keyword}{class\ }SiswaSeeder\ \textcolor{keyword}{extends}\ Seeder}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00012}00012\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ run():\ void}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00014}00014\ \ \ \ \ \ \ \ \ \$siswaUsers\ =\ User::where(\textcolor{stringliteral}{'role'},\ \textcolor{stringliteral}{'siswa'})-\/>get();}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \$kelasList\ \ =\ Kelas::all();}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$siswaUsers-\/>isEmpty()\ ||\ \$kelasList-\/>isEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00019}00019\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00021}00021\ \ \ \ \ \ \ \ \ \$nisCounter\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$siswaUsers\ as\ \$index\ =>\ \$user)\ \{}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \$kelas\ =\ \$kelasList[\$index\ \%\ \$kelasList-\/>count()];}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ Siswa::create([}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nis'}\ \ \ \ \ \ =>\ \textcolor{stringliteral}{'NIS'}\ .\ str\_pad(\$nisCounter++,\ 4,\ \textcolor{charliteral}{'0'},\ STR\_PAD\_LEFT),}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nama'}\ \ \ \ \ =>\ \textcolor{stringliteral}{'Siswa\ '}\ .\ (\$index\ +\ 1),}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'kelas\_id'}\ =>\ \$kelas-\/>id,}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'user\_id'}\ \ =>\ \$user-\/>id,}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00034}00034\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_siswa_seeder_8php_source_l00035}00035\ \}}
+
+\end{DoxyCode}

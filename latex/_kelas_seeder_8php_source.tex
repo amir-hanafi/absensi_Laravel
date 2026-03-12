@@ -1,0 +1,39 @@
+\doxysection{Kelas\+Seeder.\+php}
+\hypertarget{_kelas_seeder_8php_source}{}\label{_kelas_seeder_8php_source}\index{database/seeders/KelasSeeder.php@{database/seeders/KelasSeeder.php}}
+\doxymbox{\hyperlink{_kelas_seeder_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }Database\(\backslash\)Seeders;}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Seeder;}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00006}00006\ use\ App\(\backslash\)Models\(\backslash\)Guru;}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00007}00007\ use\ App\(\backslash\)Models\(\backslash\)Kelas;}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00009}00009\ \textcolor{keyword}{class\ }KelasSeeder\ \textcolor{keyword}{extends}\ Seeder}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ run():\ void}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00013}00013\ \ \ \ \ \ \ \ \ \$gurus\ =\ Guru::all();}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$gurus-\/>isEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$gurus\ as\ \$index\ =>\ \$guru)\ \{}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Setiap\ guru\ punya\ 2\ kelas}}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ Kelas::create([}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nama\_kelas'}\ =>\ \textcolor{stringliteral}{'X-\/IPA-\/'}\ .\ (\$index\ +\ 1),}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'guru\_id'}\ \ \ \ =>\ \$guru-\/>id,}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ Kelas::create([}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nama\_kelas'}\ =>\ \textcolor{stringliteral}{'X-\/IPS-\/'}\ .\ (\$index\ +\ 1),}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'guru\_id'}\ \ \ \ =>\ \$guru-\/>id,}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_kelas_seeder_8php_source_l00033}00033\ \}}
+
+\end{DoxyCode}

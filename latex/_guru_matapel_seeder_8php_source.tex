@@ -1,0 +1,36 @@
+\doxysection{Guru\+Matapel\+Seeder.\+php}
+\hypertarget{_guru_matapel_seeder_8php_source}{}\label{_guru_matapel_seeder_8php_source}\index{database/seeders/GuruMatapelSeeder.php@{database/seeders/GuruMatapelSeeder.php}}
+\doxymbox{\hyperlink{_guru_matapel_seeder_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }Database\(\backslash\)Seeders;}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Seeder;}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00006}00006\ use\ App\(\backslash\)Models\(\backslash\)Guru;}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00007}00007\ use\ App\(\backslash\)Models\(\backslash\)Matapel;}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00009}00009\ \textcolor{keyword}{class\ }GuruMatapelSeeder\ \textcolor{keyword}{extends}\ Seeder}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ run():\ void}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00013}00013\ \ \ \ \ \ \ \ \ \$gurus\ =\ Guru::all();}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00014}00014\ \ \ \ \ \ \ \ \ \$matapels\ =\ Matapel::all();}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$gurus-\/>isEmpty()\ ||\ \$matapels-\/>isEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00018}00018\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$gurus\ as\ \$guru)\ \{}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ setiap\ guru\ dapat\ 2\ mapel\ random}}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \$randomMatapel\ =\ \$matapels-\/>random(2);}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$randomMatapel\ as\ \$mapel)\ \{}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \$guru-\/>matapel()-\/>attach(\$mapel-\/>id);}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_matapel_seeder_8php_source_l00030}00030\ \}}
+
+\end{DoxyCode}

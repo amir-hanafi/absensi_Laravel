@@ -1,0 +1,38 @@
+\doxysection{2026\+\_\+01\+\_\+30\+\_\+0900100\+\_\+create\+\_\+qr\+\_\+tokens\+\_\+table.\+php}
+\hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source}{}\label{2026__01__30__0900100__create__qr__tokens__table_8php_source}\index{database/migrations/2026\_01\_30\_0900100\_create\_qr\_tokens\_table.php@{database/migrations/2026\_01\_30\_0900100\_create\_qr\_tokens\_table.php}}
+\doxymbox{\hyperlink{2026__01__30__0900100__create__qr__tokens__table_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Database\(\backslash\)Migrations\(\backslash\)Migration;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Database\(\backslash\)Schema\(\backslash\)Blueprint;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schema;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00014}00014\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keyword}{class\ }extends\ Migration}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ up():\ void}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'qr\_tokens'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>id();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>foreignId(\textcolor{stringliteral}{'jadwal\_id'})}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>constrained(\textcolor{stringliteral}{'jadwal'})}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>cascadeOnDelete();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'token'})-\/>unique();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>dateTime(\textcolor{stringliteral}{'expired\_at'});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>timestamps();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00049}00049\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00061}00061\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ down():\ void}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00062}00062\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00063}00063\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'qr\_tokens'});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__01__30__0900100__create__qr__tokens__table_8php_source_l00065}00065\ \};}
+
+\end{DoxyCode}

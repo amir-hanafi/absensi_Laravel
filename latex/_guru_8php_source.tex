@@ -1,0 +1,38 @@
+\doxysection{Guru.\+php}
+\hypertarget{_guru_8php_source}{}\label{_guru_8php_source}\index{app/Models/Guru.php@{app/Models/Guru.php}}
+\doxymbox{\hyperlink{_guru_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Models;}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Eloquent\(\backslash\)Model;}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00015}00015\ \textcolor{keyword}{class\ }Guru\ \textcolor{keyword}{extends}\ Model}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{protected}\ \$table\ =\ \textcolor{stringliteral}{'guru'};}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{protected}\ \$fillable\ =\ [}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'kode\_guru'},\ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'nama'},\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'no\_hp'},\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'user\_id'},\ \ \ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00030}00030\ \ \ \ \ ];}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00039}00039\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ user()}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00040}00040\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>belongsTo(User::class);}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ kelas()}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00052}00052\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>hasMany(Kelas::class);}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00064}00064\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ matapel()}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00065}00065\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>belongsToMany(Matapel::class,\ \textcolor{stringliteral}{'guru\_matapel'});}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_guru_8php_source_l00068}00068\ \}}
+
+\end{DoxyCode}

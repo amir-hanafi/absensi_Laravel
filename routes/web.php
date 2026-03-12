@@ -6,32 +6,58 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AssessmentCategoryController;
 use App\Http\Controllers\AssessmentController;
 
-// Guest only (belum login)
+/**
+ * @file routes/web.php
+ * @brief Mendefinisikan route web aplikasi Laravel
+ *
+ * Route di sini meliputi autentikasi, dashboard, jadwal, kategori penilaian, dan laporan penilaian siswa.
+ */
+
+/** 
+ * @brief Route untuk guest (belum login)
+ */
 Route::middleware('guest')->group(function () {
+    /** @brief Menampilkan halaman login */
     Route::get('/login', fn() => view('auth.login'))->name('login');
+
+    /** @brief Menangani proses login */
     Route::post('/login', [AuthController::class, 'login']);
 });
 
-// Auth + Admin only
+/**
+ * @brief Route untuk user yang sudah login (auth)
+ * @note Bagian role admin dikomentari, bisa diaktifkan jika ingin membatasi akses admin
+ */
 // Route::middleware(['auth', 'role:admin'])->group(function () {
+//     /** @brief Dashboard admin */
 //     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+//     /** @brief Logout user */
 //     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // });
 
+/** @brief Route dashboard umum */
 Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+
+/** @brief Route untuk logout */
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
+/** @brief Resource route untuk CRUD Jadwal */
 Route::resource('jadwal', JadwalController::class);
 
+/** @brief Resource route untuk CRUD Kategori Penilaian */
 Route::resource('assessment-categories', AssessmentCategoryController::class);
 
+/** @brief Route menampilkan daftar siswa untuk penilaian */
 Route::get('/penilaian/siswa', [AssessmentController::class, 'daftarSiswa']);
 
+/** @brief Route menampilkan form penilaian untuk siswa tertentu */
 Route::get('/penilaian/{id}', [AssessmentController::class, 'create']);
+
+/** @brief Route untuk menyimpan hasil penilaian */
 Route::post('/penilaian', [AssessmentController::class, 'store']);
 
-
+/** @brief Route menampilkan daftar laporan penilaian */
 Route::get('/laporan', [AssessmentController::class,'indexLaporan']);
-Route::get('/laporan/{siswa}', [AssessmentController::class,'laporan']);
 
+/** @brief Route menampilkan laporan penilaian untuk siswa tertentu */
+Route::get('/laporan/{siswa}', [AssessmentController::class,'laporan']);

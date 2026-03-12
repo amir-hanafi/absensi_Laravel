@@ -1,0 +1,37 @@
+\doxysection{2026\+\_\+01\+\_\+30\+\_\+090003\+\_\+create\+\_\+siswa\+\_\+table.\+php}
+\hypertarget{2026__01__30__090003__create__siswa__table_8php_source}{}\label{2026__01__30__090003__create__siswa__table_8php_source}\index{database/migrations/2026\_01\_30\_090003\_create\_siswa\_table.php@{database/migrations/2026\_01\_30\_090003\_create\_siswa\_table.php}}
+\doxymbox{\hyperlink{2026__01__30__090003__create__siswa__table_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00003}00003\ use\ Illuminate\(\backslash\)Database\(\backslash\)Migrations\(\backslash\)Migration;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00004}00004\ use\ Illuminate\(\backslash\)Database\(\backslash\)Schema\(\backslash\)Blueprint;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Schema;}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00014}00014\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keyword}{class\ }extends\ Migration}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00015}00015\ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ up():\ void}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00037}00037\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ Schema::create(\textcolor{stringliteral}{'siswa'},\ \textcolor{keyword}{function}\ (Blueprint\ \$table)\ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>id();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'nis'})-\/>unique();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>string(\textcolor{stringliteral}{'nama'});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>foreignId(\textcolor{stringliteral}{'kelas\_id'})-\/>constrained(\textcolor{stringliteral}{'kelas'})-\/>cascadeOnDelete();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>foreignId(\textcolor{stringliteral}{'user\_id'})-\/>constrained(\textcolor{stringliteral}{'users'})-\/>cascadeOnDelete();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \$table-\/>timestamps();}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00059}00059\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00069}00069\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ down():\ void}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00070}00070\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ Schema::dropIfExists(\textcolor{stringliteral}{'siswa'});}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00072}00072\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{2026__01__30__090003__create__siswa__table_8php_source_l00073}00073\ \};}
+
+\end{DoxyCode}

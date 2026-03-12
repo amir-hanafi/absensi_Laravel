@@ -9,12 +9,23 @@ use Carbon\Carbon;
 use App\Models\Jadwal;
 use App\Models\JadwalSekolah;
 
-
-
+/**
+ * @class QrController
+ * @brief Controller untuk mengelola QR Token absensi.
+ *
+ * Menyediakan fungsi untuk:
+ * - Mendapatkan token QR untuk jadwal tertentu
+ * - Mendapatkan token QR untuk jadwal saat ini
+ * - Memvalidasi QR token saat scan
+ */
 class QrController extends Controller
 {
-
-
+    /**
+     * @brief Mendapatkan token QR untuk jadwal tertentu.
+     *
+     * @param int $jadwal_id ID jadwal
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getToken($jadwal_id)
     {
         $qr = QrToken::where('jadwal_id', $jadwal_id)
@@ -33,8 +44,14 @@ class QrController extends Controller
         ]);
     }
 
-
-
+    /**
+     * @brief Mendapatkan token QR untuk jadwal saat ini.
+     *
+     * Menghitung jadwal berdasarkan hari dan jam saat ini, kemudian
+     * mengembalikan token QR terbaru untuk jadwal tersebut.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getCurrentToken()
     {
         $hariMap = [
@@ -50,7 +67,6 @@ class QrController extends Controller
         $today = $hariMap[Carbon::now()->format('l')];
         $now = Carbon::now()->format('H:i:s');
 
-
         $jamSekarang = JadwalSekolah::where('hari', $today)
             ->where('jam_mulai', '<=', $now)
             ->where('jam_selesai', '>=', $now)
@@ -65,7 +81,6 @@ class QrController extends Controller
         $jadwal = Jadwal::where('hari', $today)
             ->where('jam_ke', $jamSekarang->jam_ke)
             ->first();
-
 
         if (!$jadwal) {
             return response()->json([
@@ -90,7 +105,18 @@ class QrController extends Controller
         ]);
     }
 
-
+    /**
+     * @brief Memvalidasi scan QR token.
+     *
+     * Mengecek apakah QR token valid dan belum expired.
+     *
+     * @param Request $request Request berisi:
+     * - token (string)
+     * - latitude (float)
+     * - longitude (float)
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function scanQr(Request $request)
     {
         $request->validate([

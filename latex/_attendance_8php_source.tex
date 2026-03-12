@@ -1,0 +1,40 @@
+\doxysection{Attendance.\+php}
+\hypertarget{_attendance_8php_source}{}\label{_attendance_8php_source}\index{app/Models/Attendance.php@{app/Models/Attendance.php}}
+\doxymbox{\hyperlink{_attendance_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Models;}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Eloquent\(\backslash\)Model;}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00015}00015\ \textcolor{keyword}{class\ }Attendance\ \textcolor{keyword}{extends}\ Model}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{protected}\ \$fillable\ =\ [}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'qr\_token\_id'},\ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'user\_id'},\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'jadwal\_id'},\ \ \ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'latitude'},\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'longitude'},\ \ \ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'distance'},\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'status'},\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'scan\_time'}\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00031}00031\ \ \ \ \ ];}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00040}00040\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ user()}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00041}00041\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>belongsTo(User::class);}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00043}00043\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00052}00052\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ jadwal()}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00053}00053\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>belongsTo(Jadwal::class);}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00055}00055\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00064}00064\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ qrToken()}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00065}00065\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \$this-\/>belongsTo(QrToken::class);}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_attendance_8php_source_l00068}00068\ \}}
+
+\end{DoxyCode}

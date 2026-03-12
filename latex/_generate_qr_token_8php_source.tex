@@ -1,0 +1,74 @@
+\doxysection{Generate\+Qr\+Token.\+php}
+\hypertarget{_generate_qr_token_8php_source}{}\label{_generate_qr_token_8php_source}\index{app/Console/Commands/GenerateQrToken.php@{app/Console/Commands/GenerateQrToken.php}}
+\doxymbox{\hyperlink{_generate_qr_token_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Console\(\backslash\)Commands;}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Console\(\backslash\)Command;}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00006}00006\ use\ App\(\backslash\)Models\(\backslash\)QrToken;}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00007}00007\ use\ App\(\backslash\)Models\(\backslash\)Jadwal;}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00008}00008\ use\ App\(\backslash\)Models\(\backslash\)JadwalSekolah;}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00009}00009\ use\ Illuminate\(\backslash\)Support\(\backslash\)Str;}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00015}00015\ \textcolor{keyword}{class\ }GenerateQrToken\ \textcolor{keyword}{extends}\ Command}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{protected}\ \$signature\ =\ \textcolor{stringliteral}{'app:generate-\/qr-\/token'};}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{protected}\ \$description\ =\ \textcolor{stringliteral}{'Generate\ QR\ token\ untuk\ jadwal\ aktif'};}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00037}00037\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ handle()}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00038}00038\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mapping\ nama\ hari}}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \$hariMap\ =\ [}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Monday'}\ =>\ \textcolor{stringliteral}{'Senin'},}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Tuesday'}\ =>\ \textcolor{stringliteral}{'Selasa'},}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Wednesday'}\ =>\ \textcolor{stringliteral}{'Rabu'},}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Thursday'}\ =>\ \textcolor{stringliteral}{'Kamis'},}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Friday'}\ =>\ \textcolor{stringliteral}{'Jumat'},}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Saturday'}\ =>\ \textcolor{stringliteral}{'Sabtu'},}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'Sunday'}\ =>\ \textcolor{stringliteral}{'Minggu'},}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \$today\ =\ \$hariMap[now()-\/>format(\textcolor{charliteral}{'l'})];}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \$now\ =\ now()-\/>format(\textcolor{stringliteral}{'H:i:s'});}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cari\ jam\ pelajaran\ aktif}}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \$jamSekarang\ =\ JadwalSekolah::where(\textcolor{stringliteral}{'hari'},\ \$today)}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'jam\_mulai'},\ \textcolor{stringliteral}{'<='},\ \$now)}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'jam\_selesai'},\ \textcolor{stringliteral}{'>='},\ \$now)}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>first();}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\$jamSekarang)\ \{}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>info(\textcolor{stringliteral}{"{}Tidak\ ada\ jam\ pelajaran\ saat\ ini"{}});}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00062}00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ambil\ semua\ jadwal\ untuk\ jam\ aktif}}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00065}00065\ \ \ \ \ \ \ \ \ \$jadwals\ =\ Jadwal::where(\textcolor{stringliteral}{'hari'},\ \$today)}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'jam\_ke'},\ \$jamSekarang-\/>jam\_ke)}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>get();}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00069}00069\ \ \ \ \ \ \ \ \ \$this-\/>info(\textcolor{stringliteral}{"{}Jumlah\ jadwal\ aktif:\ "{}}\ .\ \$jadwals-\/>count());}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{foreach}\ (\$jadwals\ as\ \$jadwal)\ \{}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Hapus\ token\ lama}}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ QrToken::where(\textcolor{stringliteral}{'jadwal\_id'},\ \$jadwal-\/>id)-\/>delete();}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Buat\ token\ baru}}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ QrToken::create([}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'jadwal\_id'}\ =>\ \$jadwal-\/>id,}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'token'}\ =>\ Str::random(40),}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'expired\_at'}\ =>\ now()-\/>addMinutes(5)}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \$this-\/>info(\textcolor{stringliteral}{"{}Token\ dibuat\ untuk\ jadwal\ ID:\ "{}}\ .\ \$jadwal-\/>id);}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00084}00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00087}00087\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_generate_qr_token_8php_source_l00088}00088\ \}}
+
+\end{DoxyCode}
