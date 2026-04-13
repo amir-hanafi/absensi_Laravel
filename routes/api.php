@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\MarketplaceController;
 
 /**
  * @file routes/api.php
@@ -67,3 +68,9 @@ Route::middleware('auth:sanctum')->group(function () {
  * @return JSON info jadwal saat ini (mata pelajaran, jam, tanggal)
  */
 Route::middleware('auth:sanctum')->get('/jadwal-sekarang', [JadwalController::class, 'sekarang']);
+
+Route::middleware('auth:sanctum')->get('/marketplace', function () {
+    return \App\Models\FlexibilityItem::all();
+});
+
+Route::middleware('auth:sanctum')->post('/marketplace/buy/{id}', [MarketplaceController::class, 'buy']);

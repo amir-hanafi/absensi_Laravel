@@ -5,6 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AssessmentCategoryController;
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PointController;
+use App\Http\Controllers\MarketplaceController;
 
 /**
  * @file routes/web.php
@@ -35,8 +39,7 @@ Route::middleware('guest')->group(function () {
 //     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // });
 
-/** @brief Route dashboard umum */
-Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+
 
 /** @brief Route untuk logout */
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -61,3 +64,15 @@ Route::get('/laporan', [AssessmentController::class,'indexLaporan']);
 
 /** @brief Route menampilkan laporan penilaian untuk siswa tertentu */
 Route::get('/laporan/{siswa}', [AssessmentController::class,'laporan']);
+
+
+/** @brief Route CRUD absensi */
+Route::resource('absensi', AbsensiController::class);
+
+/** @brief Route dashboard umum */
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/points', [PointController::class, 'index'])->name('points.index');
+
+Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+Route::post('/marketplace/buy/{id}', [MarketplaceController::class, 'buy'])->name('marketplace.buy');

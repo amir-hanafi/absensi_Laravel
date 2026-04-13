@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
             JadwalSekolahSeeder::class, /**< Seeder untuk tabel jadwal_sekolah */
             // JadwalSeeder::class,      /**< Seeder untuk tabel jadwal (di-comment) */
             PlaceSeeder::class,         /**< Seeder untuk tabel places */
+            PointRuleSeeder::class,        
+            FlexibilityItemSeeder::class,       
             // AssessmentCategorySeeder::class, /**< Seeder untuk kategori penilaian (di-comment) */
         ]);
     }

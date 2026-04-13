@@ -1,83 +1,83 @@
+<style>
+    .custom-bg {
+        background-color: #00a2ff;
+        color: #ffffff;
+    }
+</style>
+
 @extends('layout.master')
 
 @section('content')
+    <div class="container">
 
-<div class="container">
+        <h3 class="mb-4">Kategori Penilaian</h3>
 
-<h3 class="mb-4">Kategori Penilaian</h3>
+        <a href="{{ route('assessment-categories.create') }}" class="btn btn-primary mb-3">
+            Tambah Kategori
+        </a>
 
-<a href="{{ route('assessment-categories.create') }}" class="btn btn-primary mb-3">
-Tambah Kategori
-</a>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-@if(session('success'))
-<div class="alert alert-success">
-{{ session('success') }}
-</div>
-@endif
+        <table class="table table-bordered">
 
-<table class="table table-bordered">
+            <tr>
+                <th>No</th>
+                <th>Nama Kategori</th>
+                <th>Deskripsi Kategori</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th width="200">Aksi</th>
+            </tr>
 
-<tr>
-<th>No</th>
-<th>Nama</th>
-<th>Deskripsi</th>
-<th>Type</th>
-<th>Status</th>
-<th width="200">Aksi</th>
-</tr>
+            @foreach ($categories as $category)
+                <tr>
 
-@foreach($categories as $category)
+                    <td>{{ $loop->iteration }}</td>
 
-<tr>
+                    <td>{{ $category->name }}</td>
 
-<td>{{ $loop->iteration }}</td>
+                    <td>{{ $category->description }}</td>
 
-<td>{{ $category->name }}</td>
+                    <td>{{ $category->type }}</td>
 
-<td>{{ $category->description }}</td>
+                    <td>
+                        @if ($category->is_active)
+                            <span class="badge bg-success">Aktif</span>
+                        @else
+                            <span class="badge bg-secondary">Nonaktif</span>
+                        @endif
+                    </td>
 
-<td>{{ $category->type }}</td>
+                    <td>
 
-<td>
-@if($category->is_active)
-<span class="badge bg-success">Aktif</span>
-@else
-<span class="badge bg-secondary">Nonaktif</span>
-@endif
-</td>
+                        <a href="{{ route('assessment-categories.edit', $category->id) }}" class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
 
-<td>
+                        <form action="{{ route('assessment-categories.destroy', $category->id) }}" method="POST"
+                            style="display:inline">
 
-<a href="{{ route('assessment-categories.edit',$category->id) }}"
-class="btn btn-warning btn-sm">
-Edit
-</a>
+                            @csrf
+                            @method('DELETE')
 
-<form action="{{ route('assessment-categories.destroy',$category->id) }}"
-method="POST"
-style="display:inline">
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('Hapus kategori?')">
+                                Hapus
+                            </button>
 
-@csrf
-@method('DELETE')
+                        </form>
 
-<button class="btn btn-danger btn-sm"
-onclick="return confirm('Hapus kategori?')">
-Hapus
-</button>
+                    </td>
 
-</form>
+                </tr>
+            @endforeach
 
-</td>
+        </table>
 
-</tr>
+        {{ $categories->links() }}
 
-@endforeach
-
-</table>
-
-{{ $categories->links() }}
-
-</div>
-
+    </div>
 @endsection

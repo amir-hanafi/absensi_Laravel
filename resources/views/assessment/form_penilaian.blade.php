@@ -42,42 +42,49 @@
 
                 <tr>
                     <th>Indikator</th>
-                    <th>Nilai</th>
+                    <th class="text-center">Very Poor</th>
+                    <th class="text-center">Poor</th>
+                    <th class="text-center">Good</th>
+                    <th class="text-center">Great</th>
+                    <th class="text-center">Excelent</th>
                 </tr>
 
                 @foreach ($categories as $category)
                     <tr>
 
                         <td>
-                            {{ $category->name }}
+                            {{ $category->description }}
                         </td>
 
-                        <td>
 
-                            <div class="star-rating">
+                        <td class="text-center">
+                            <input type="radio" name="score[{{ $category->id }}]" value="1"
+                                id="star1-{{ $category->id }}">
+                            <label for="star1-{{ $category->id }}">★</label>
+                        </td>
 
-                                <input type="radio" name="score[{{ $category->id }}]" value="5"
-                                    id="star5-{{ $category->id }}">
-                                <label for="star5-{{ $category->id }}">★</label>
+                        <td class="text-center">
+                            <input type="radio" name="score[{{ $category->id }}]" value="2"
+                                id="star2-{{ $category->id }}">
+                            <label for="star2-{{ $category->id }}">★</label>
+                        </td>
 
-                                <input type="radio" name="score[{{ $category->id }}]" value="4"
-                                    id="star4-{{ $category->id }}">
-                                <label for="star4-{{ $category->id }}">★</label>
+                        <td class="text-center">
+                            <input type="radio" name="score[{{ $category->id }}]" value="3"
+                                id="star3-{{ $category->id }}">
+                            <label for="star3-{{ $category->id }}">★</label>
+                        </td>
 
-                                <input type="radio" name="score[{{ $category->id }}]" value="3"
-                                    id="star3-{{ $category->id }}">
-                                <label for="star3-{{ $category->id }}">★</label>
+                        <td class="text-center">
+                            <input type="radio" name="score[{{ $category->id }}]" value="4"
+                                id="star4-{{ $category->id }}">
+                            <label for="star4-{{ $category->id }}">★</label>
+                        </td>
 
-                                <input type="radio" name="score[{{ $category->id }}]" value="2"
-                                    id="star2-{{ $category->id }}">
-                                <label for="star2-{{ $category->id }}">★</label>
-
-                                <input type="radio" name="score[{{ $category->id }}]" value="1"
-                                    id="star1-{{ $category->id }}">
-                                <label for="star1-{{ $category->id }}">★</label>
-
-                            </div>
-
+                        <td class="text-center">
+                            <input type="radio" name="score[{{ $category->id }}]" value="5"
+                                id="star5-{{ $category->id }}">
+                            <label for="star5-{{ $category->id }}">★</label>
                         </td>
 
                     </tr>

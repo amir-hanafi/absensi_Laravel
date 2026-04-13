@@ -70,8 +70,8 @@ class GenerateQrToken extends Command
 
         foreach ($jadwals as $jadwal) {
 
-            // Hapus token lama
-            QrToken::where('jadwal_id', $jadwal->id)->delete();
+            // // Hapus token lama
+            // QrToken::where('jadwal_id', $jadwal->id)->delete();
 
             // Buat token baru
             QrToken::create([

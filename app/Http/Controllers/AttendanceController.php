@@ -6,28 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\QrToken;
 use App\Models\Place;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Absensi;
+use App\Models\PointRule;
+use App\Models\PointLedger;
+use Carbon\Carbon;
+use App\Models\UserToken;
+use App\Models\FlexibilityItem;
 
-/**
- * @class AttendanceController
- * @brief Controller untuk mengelola absensi berbasis QR code dan lokasi.
- *
- * Controller ini menangani proses scan QR, validasi lokasi siswa,
- * pembuatan record absensi, dan pembaruan absensi harian.
- */
 class AttendanceController extends Controller
 {
-    /**
-     * @brief Memproses scan QR siswa untuk absensi.
-     *
-     * Validasi token QR, mengecek kadaluarsa, memeriksa jarak
-     * terhadap radius lokasi yang diizinkan, serta menyimpan
-     * data absensi dan status harian siswa.
-     *
-     * @param Request $request Objek request yang berisi token QR, latitude, dan longitude.
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function scanQr(Request $request)
     {
         $request->validate([
@@ -38,7 +25,12 @@ class AttendanceController extends Controller
 
         $user = $request->user();
 
-        $token = QrToken::where('token', $request->token)->first();
+        // ======================
+        // VALIDASI QR
+        // ======================
+        $token = QrToken::where('token', $request->token)
+            ->latest()
+            ->first();
 
         if (!$token) {
             return response()->json([
@@ -54,7 +46,9 @@ class AttendanceController extends Controller
             ], 400);
         }
 
-        // cek apakah sudah absen valid
+        // ======================
+        // CEK SUDAH ABSEN
+        // ======================
         $alreadyValid = Attendance::where('user_id', $user->id)
             ->where('jadwal_id', $token->jadwal_id)
             ->where('status', 'valid')
@@ -67,6 +61,9 @@ class AttendanceController extends Controller
             ], 403);
         }
 
+        // ======================
+        // VALIDASI LOKASI
+        // ======================
         $places = Place::all();
 
         $distance = null;
@@ -74,7 +71,6 @@ class AttendanceController extends Controller
         $isValid = false;
 
         foreach ($places as $place) {
-
             $currentDistance = $this->calculateDistance(
                 $place->latitude,
                 $place->longitude,
@@ -97,17 +93,9 @@ class AttendanceController extends Controller
             ], 403);
         }
 
-        if ($distance === null) {
-            $place = $places->first();
-
-            $distance = $this->calculateDistance(
-                $place->latitude,
-                $place->longitude,
-                $request->latitude,
-                $request->longitude
-            );
-        }
-
+        // ======================
+        // SIMPAN ATTENDANCE
+        // ======================
         $attendance = Attendance::create([
             'qr_token_id' => $token->id,
             'user_id' => $user->id,
@@ -119,13 +107,147 @@ class AttendanceController extends Controller
             'scan_time' => now()
         ]);
 
+        // ======================
+        // HITUNG TELAT
+        // ======================
+        $jamMasuk = "14:55:00"; // sesuaikan dengan jadwal
+
+        $start = Carbon::parse($jamMasuk);
+        $now = now();
+
+        $lateMinutes = $start->diffInMinutes($now, false);
+        $isLate = $lateMinutes > 0;
+
+        $statusAbsensi = 'Hadir';
+
+        // ======================
+        // CEK TOKEN (INTERCEPTOR)
+        // ======================
+        
+        if ($isLate) {
+
+            $tokens = UserToken::where('user_id', $user->id)
+                ->where('status', 'AVAILABLE')
+                ->get()
+                ->sortBy(function ($token) {
+                    return FlexibilityItem::find($token->item_id)->max_late_minutes;
+                });
+
+            foreach ($tokens as $token) {
+
+                $item = FlexibilityItem::find($token->item_id);
+
+                if (
+                    $item &&
+                    $item->max_late_minutes !== null &&
+                    $item->max_late_minutes >= $lateMinutes
+                ) {
+
+                    // pakai token
+                    $token->update([
+                        'status' => 'USED',
+                        'used_at_attendance_id' => $attendance->id
+                    ]);
+
+                    $attendance->update([
+                        'status' => 'token_used'
+                    ]);
+
+                    $statusAbsensi = 'Hadir (Token)';
+
+                    // ambil saldo terakhir
+                    $last = PointLedger::where('user_id', $user->id)->latest()->first();
+                    $balance = $last ? $last->current_balance : 0;
+
+                    // catat ledger
+                    PointLedger::create([
+                        'user_id' => $user->id,
+                        'transaction_type' => 'TOKEN_USED',
+                        'amount' => 0,
+                        'current_balance' => $balance,
+                        'description' => "Menggunakan token {$item->item_name}"
+                    ]);
+
+                    // simpan absensi
+                    Absensi::updateOrCreate(
+                        [
+                            'user_id' => $user->id,
+                            'tanggal' => now()->toDateString(),
+                        ],
+                        [
+                            'status' => $statusAbsensi,
+                            'attendance_id' => $attendance->id
+                        ]
+                    );
+
+                    return response()->json([
+                        "status" => "valid",
+                        "message" => "Telat $lateMinutes menit, pakai token 👍"
+                    ]);
+                }
+            }
+        }
+
+        // ======================
+        // RULE ENGINE (JIKA TIDAK PAKAI TOKEN)
+        // ======================
+        $waktuAbsen = Carbon::parse($attendance->scan_time)->format('H:i:s');
+
+        $rules = PointRule::all();
+
+        foreach ($rules as $rule) {
+
+            $match = false;
+
+            if ($rule->condition_operator == '<') {
+                if ($waktuAbsen < $rule->condition_value) {
+                    $match = true;
+                }
+            } elseif ($rule->condition_operator == '>') {
+                if ($waktuAbsen > $rule->condition_value) {
+                    $match = true;
+                }
+            } elseif ($rule->condition_operator == 'between') {
+                $range = explode('-', $rule->condition_value);
+                if ($waktuAbsen >= $range[0] && $waktuAbsen <= $range[1]) {
+                    $match = true;
+                }
+            }
+
+            if ($match) {
+
+                $point = $rule->point_modifier;
+
+                $last = PointLedger::where('user_id', $user->id)
+                    ->latest()
+                    ->first();
+
+                $balance = $last ? $last->current_balance : 0;
+
+                $newBalance = $balance + $point;
+
+                PointLedger::create([
+                    'user_id' => $user->id,
+                    'transaction_type' => $point >= 0 ? 'EARN' : 'PENALTY',
+                    'amount' => $point,
+                    'current_balance' => $newBalance,
+                    'description' => $rule->rule_name,
+                ]);
+
+                break;
+            }
+        }
+
+        // ======================
+        // SIMPAN ABSENSI NORMAL
+        // ======================
         Absensi::updateOrCreate(
             [
                 'user_id' => $user->id,
                 'tanggal' => now()->toDateString(),
             ],
             [
-                'status' => 'Hadir',
+                'status' => $statusAbsensi,
                 'attendance_id' => $attendance->id
             ]
         );
@@ -137,17 +259,6 @@ class AttendanceController extends Controller
         ]);
     }
 
-    /**
-     * @brief Menghitung jarak antara dua titik geografis.
-     *
-     * Menggunakan formula Haversine untuk menghitung jarak dalam meter.
-     *
-     * @param float $lat1 Latitude titik pertama
-     * @param float $lon1 Longitude titik pertama
-     * @param float $lat2 Latitude titik kedua
-     * @param float $lon2 Longitude titik kedua
-     * @return float Jarak antara kedua titik dalam meter
-     */
     private function calculateDistance($lat1, $lon1, $lat2, $lon2)
     {
         $earthRadius = 6371000;

@@ -57,6 +57,13 @@
             </a>
         </li>
 
+        <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('absensi.index') }}">
+                <i class="menu-icon mdi mdi-table-large"></i>
+                <span class="menu-title">CRUD Absensi</span>
+            </a>
+        </li>
+
         <li class="nav-item {{ request()->is('assessment-categories*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/assessment-categories') }}">
                 <i class="menu-icon mdi mdi-format-list-bulleted"></i>
@@ -75,6 +82,20 @@
             <a class="nav-link" href="{{ url('/laporan') }}">
                 <i class="menu-icon mdi mdi-table-large"></i>
                 <span class="menu-title">Laporan Penilaian</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->is('points*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('points.index') }}">
+                <i class="menu-icon mdi mdi-star"></i>
+                <span class="menu-title">Poin Siswa</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->is('marketplace*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('marketplace.index') }}">
+                <i class="menu-icon mdi mdi-cart"></i>
+                <span class="menu-title">Marketplace Poin</span>
             </a>
         </li>
 
