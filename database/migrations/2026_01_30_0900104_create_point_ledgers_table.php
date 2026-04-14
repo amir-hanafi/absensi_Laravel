@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('point_ledgers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->enum('transaction_type', ['EARN', 'PENALTY', 'SPEND']);
+            $table->enum('transaction_type', ['EARN', 'PENALTY', 'SPEND', 'TOKEN_USED']);
             $table->integer('amount');
             $table->integer('current_balance');
             $table->text('description')->nullable();

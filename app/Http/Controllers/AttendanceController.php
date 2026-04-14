@@ -28,9 +28,7 @@ class AttendanceController extends Controller
         // ======================
         // VALIDASI QR
         // ======================
-        $token = QrToken::where('token', $request->token)
-            ->latest()
-            ->first();
+        $token = QrToken::where('token', $request->token)->latest()->first();
 
         if (!$token) {
             return response()->json([
@@ -57,7 +55,7 @@ class AttendanceController extends Controller
         if ($alreadyValid) {
             return response()->json([
                 "status" => "rejected",
-                "message" => "Anda sudah absen pada jadwal ini"
+                "message" => "Anda sudah absen"
             ], 403);
         }
 
@@ -68,28 +66,26 @@ class AttendanceController extends Controller
 
         $distance = null;
         $placeName = null;
-        $isValid = false;
 
         foreach ($places as $place) {
-            $currentDistance = $this->calculateDistance(
+            $d = $this->calculateDistance(
                 $place->latitude,
                 $place->longitude,
                 $request->latitude,
                 $request->longitude
             );
 
-            if ($currentDistance <= $place->allowed_radius) {
-                $isValid = true;
-                $distance = $currentDistance;
+            if ($d <= $place->allowed_radius) {
+                $distance = $d;
                 $placeName = $place->name;
                 break;
             }
         }
 
-        if (!$isValid) {
+        if (!$distance) {
             return response()->json([
                 "status" => "rejected",
-                "message" => "Diluar radius absensi"
+                "message" => "Diluar radius"
             ], 403);
         }
 
@@ -110,32 +106,28 @@ class AttendanceController extends Controller
         // ======================
         // HITUNG TELAT
         // ======================
-        $jamMasuk = "14:55:00"; // sesuaikan dengan jadwal
+        $jamMasuk = "06:55:00";
 
-        $start = Carbon::parse($jamMasuk);
-        $now = now();
+        $startTime = Carbon::parse($jamMasuk);
+        $scanTime = Carbon::parse($attendance->scan_time);
 
-        $lateMinutes = $start->diffInMinutes($now, false);
+        $lateMinutes = $startTime->diffInMinutes($scanTime, false);
         $isLate = $lateMinutes > 0;
 
-        $statusAbsensi = 'Hadir';
+        $tokenUsed = false;
 
         // ======================
-        // CEK TOKEN (INTERCEPTOR)
+        // CEK TOKEN
         // ======================
-        
         if ($isLate) {
 
             $tokens = UserToken::where('user_id', $user->id)
                 ->where('status', 'AVAILABLE')
-                ->get()
-                ->sortBy(function ($token) {
-                    return FlexibilityItem::find($token->item_id)->max_late_minutes;
-                });
+                ->get();
 
-            foreach ($tokens as $token) {
+            foreach ($tokens as $tokenUser) {
 
-                $item = FlexibilityItem::find($token->item_id);
+                $item = FlexibilityItem::find($tokenUser->item_id);
 
                 if (
                     $item &&
@@ -143,103 +135,70 @@ class AttendanceController extends Controller
                     $item->max_late_minutes >= $lateMinutes
                 ) {
 
-                    // pakai token
-                    $token->update([
-                        'status' => 'USED',
-                        'used_at_attendance_id' => $attendance->id
+                    $tokenUser->update([
+                        'status' => 'USED'
                     ]);
 
-                    $attendance->update([
-                        'status' => 'token_used'
-                    ]);
+                    $tokenUsed = true;
+                    break;
+                }
+            }
+        }
 
-                    $statusAbsensi = 'Hadir (Token)';
+        // ======================
+        // LEDGER
+        // ======================
+        $last = PointLedger::where('user_id', $user->id)->latest()->first();
+        $balance = $last ? $last->current_balance : 0;
 
-                    // ambil saldo terakhir
-                    $last = PointLedger::where('user_id', $user->id)->latest()->first();
-                    $balance = $last ? $last->current_balance : 0;
+        if ($tokenUsed) {
 
-                    // catat ledger
+            PointLedger::create([
+                'user_id' => $user->id,
+                'transaction_type' => 'TOKEN_USED',
+                'amount' => 0,
+                'current_balance' => $balance,
+                'description' => 'Menggunakan token keterlambatan'
+            ]);
+        } else {
+
+            $waktuAbsen = $scanTime->format('H:i:s');
+            $rules = PointRule::all();
+
+            foreach ($rules as $rule) {
+
+                $match = false;
+
+                if ($rule->condition_operator == '<') {
+                    $match = $waktuAbsen < $rule->condition_value;
+                } elseif ($rule->condition_operator == '>') {
+                    $match = $waktuAbsen > $rule->condition_value;
+                } elseif ($rule->condition_operator == 'between') {
+
+                    [$rangeStart, $rangeEnd] = explode('-', $rule->condition_value);
+
+                    $match = $waktuAbsen >= $rangeStart && $waktuAbsen <= $rangeEnd;
+                }
+
+                if ($match) {
+
+                    $point = $rule->point_modifier;
+
                     PointLedger::create([
                         'user_id' => $user->id,
-                        'transaction_type' => 'TOKEN_USED',
-                        'amount' => 0,
-                        'current_balance' => $balance,
-                        'description' => "Menggunakan token {$item->item_name}"
+                        'transaction_type' => $point >= 0 ? 'EARN' : 'PENALTY',
+                        'amount' => $point,
+                        'current_balance' => $balance + $point,
+                        'description' => $rule->rule_name,
                     ]);
 
-                    // simpan absensi
-                    Absensi::updateOrCreate(
-                        [
-                            'user_id' => $user->id,
-                            'tanggal' => now()->toDateString(),
-                        ],
-                        [
-                            'status' => $statusAbsensi,
-                            'attendance_id' => $attendance->id
-                        ]
-                    );
-
-                    return response()->json([
-                        "status" => "valid",
-                        "message" => "Telat $lateMinutes menit, pakai token 👍"
-                    ]);
+                    break;
                 }
             }
         }
 
         // ======================
-        // RULE ENGINE (JIKA TIDAK PAKAI TOKEN)
-        // ======================
-        $waktuAbsen = Carbon::parse($attendance->scan_time)->format('H:i:s');
-
-        $rules = PointRule::all();
-
-        foreach ($rules as $rule) {
-
-            $match = false;
-
-            if ($rule->condition_operator == '<') {
-                if ($waktuAbsen < $rule->condition_value) {
-                    $match = true;
-                }
-            } elseif ($rule->condition_operator == '>') {
-                if ($waktuAbsen > $rule->condition_value) {
-                    $match = true;
-                }
-            } elseif ($rule->condition_operator == 'between') {
-                $range = explode('-', $rule->condition_value);
-                if ($waktuAbsen >= $range[0] && $waktuAbsen <= $range[1]) {
-                    $match = true;
-                }
-            }
-
-            if ($match) {
-
-                $point = $rule->point_modifier;
-
-                $last = PointLedger::where('user_id', $user->id)
-                    ->latest()
-                    ->first();
-
-                $balance = $last ? $last->current_balance : 0;
-
-                $newBalance = $balance + $point;
-
-                PointLedger::create([
-                    'user_id' => $user->id,
-                    'transaction_type' => $point >= 0 ? 'EARN' : 'PENALTY',
-                    'amount' => $point,
-                    'current_balance' => $newBalance,
-                    'description' => $rule->rule_name,
-                ]);
-
-                break;
-            }
-        }
-
-        // ======================
-        // SIMPAN ABSENSI NORMAL
+        // SIMPAN ABSENSI
         // ======================
         Absensi::updateOrCreate(
             [
@@ -247,15 +206,18 @@ class AttendanceController extends Controller
                 'tanggal' => now()->toDateString(),
             ],
             [
-                'status' => $statusAbsensi,
+                'status' => 'Hadir', // FIXED
                 'attendance_id' => $attendance->id
             ]
         );
 
         return response()->json([
             "status" => "valid",
-            "distance" => $distance,
-            "message" => "Absensi berhasil di $placeName"
+            "message" => !$isLate
+                ? "Absensi berhasil di $placeName"
+                : ($tokenUsed
+                    ? "Telat $lateMinutes menit, pakai token 👍"
+                    : "Telat $lateMinutes menit")
         ]);
     }
 
@@ -267,11 +229,10 @@ class AttendanceController extends Controller
         $dLon = deg2rad($lon2 - $lon1);
 
         $a =
-            sin($dLat / 2) * sin($dLat / 2) +
+            sin($dLat / 2) ** 2 +
             cos(deg2rad($lat1)) *
             cos(deg2rad($lat2)) *
-            sin($dLon / 2) *
-            sin($dLon / 2);
+            sin($dLon / 2) ** 2;
 
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
 

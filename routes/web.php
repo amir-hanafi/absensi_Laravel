@@ -76,3 +76,5 @@ Route::get('/points', [PointController::class, 'index'])->name('points.index');
 
 Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
 Route::post('/marketplace/buy/{id}', [MarketplaceController::class, 'buy'])->name('marketplace.buy');
+
+Route::get('/points/{user}', [PointController::class, 'detail'])->name('points.detail');
