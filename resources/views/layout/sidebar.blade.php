@@ -85,10 +85,24 @@
             </a>
         </li>
 
+        <li class="nav-item {{ request()->is('point-rules*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/point-rules') }}">
+                <i class="menu-icon mdi mdi-tune"></i>
+                <span class="menu-title">Rule Poin</span>
+            </a>
+        </li>
+
         <li class="nav-item {{ request()->is('points*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('points.index') }}">
                 <i class="menu-icon mdi mdi-star"></i>
                 <span class="menu-title">Poin Siswa</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->is('leaderboard*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('leaderboard') }}">
+                <i class="menu-icon mdi mdi-trophy"></i>
+                <span class="menu-title">Leaderboard</span>
             </a>
         </li>
 

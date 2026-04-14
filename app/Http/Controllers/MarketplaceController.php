@@ -66,4 +66,58 @@ class MarketplaceController extends Controller
             ]);
         });
     }
+
+    public function getPoints()
+    {
+        $userId = Auth::id();
+
+        $last = PointLedger::where('user_id', $userId)
+            ->latest()
+            ->first();
+
+        return response()->json([
+            'points' => $last ? $last->current_balance : 0
+        ]);
+    }
+
+    public function getTokens()
+    {
+        $userId = Auth::id();
+
+        $tokens = UserToken::where('user_id', $userId)
+            ->where('status', 'AVAILABLE')
+            ->with('item') // relasi ke item
+            ->get()
+            ->map(function ($token) {
+                return [
+                    'id' => $token->id,
+                    'item_name' => $token->item->item_name
+                ];
+            });
+
+        return response()->json([
+            'tokens' => $tokens
+        ]);
+    }
+
+    public function getLedger()
+    {
+        $userId = Auth::id();
+
+        $ledgers = PointLedger::where('user_id', $userId)
+            ->latest()
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'type' => $item->transaction_type,
+                    'amount' => $item->amount,
+                    'description' => $item->description,
+                    'date' => $item->created_at->format('d M Y H:i')
+                ];
+            });
+
+        return response()->json([
+            'data' => $ledgers
+        ]);
+    }
 }

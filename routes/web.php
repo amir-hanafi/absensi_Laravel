@@ -9,6 +9,7 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\MarketplaceController;
+use App\Http\Controllers\PointRuleController;
 
 /**
  * @file routes/web.php
@@ -78,3 +79,7 @@ Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marke
 Route::post('/marketplace/buy/{id}', [MarketplaceController::class, 'buy'])->name('marketplace.buy');
 
 Route::get('/points/{user}', [PointController::class, 'detail'])->name('points.detail');
+
+Route::resource('point-rules', PointRuleController::class);
+
+Route::get('/leaderboard', [PointController::class, 'leaderboard'])->name('leaderboard');

@@ -12,4 +12,9 @@ class UserToken extends Model
         'item_id',
         'status'
     ];
+
+    public function item()
+    {
+        return $this->belongsTo(FlexibilityItem::class, 'item_id');
+    }
 }

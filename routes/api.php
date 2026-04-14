@@ -59,6 +59,9 @@ Route::middleware('auth:sanctum')->group(function () {
      */
     Route::post('/scan-qr', [AttendanceController::class, 'scanQr']);
 
+    Route::get('/user/points', [MarketplaceController::class, 'getPoints']);
+    Route::get('/user/tokens', [MarketplaceController::class, 'getTokens']);
+
 });
 
 /**
@@ -74,3 +77,5 @@ Route::middleware('auth:sanctum')->get('/marketplace', function () {
 });
 
 Route::middleware('auth:sanctum')->post('/marketplace/buy/{id}', [MarketplaceController::class, 'buy']);
+
+Route::middleware('auth:sanctum')->get('/user/ledger', [MarketplaceController::class, 'getLedger']);
