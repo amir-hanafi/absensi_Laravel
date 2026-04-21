@@ -10,6 +10,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\PointRuleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MatapelController;
 
 /**
  * @file routes/web.php
@@ -83,3 +85,7 @@ Route::get('/points/{user}', [PointController::class, 'detail'])->name('points.d
 Route::resource('point-rules', PointRuleController::class);
 
 Route::get('/leaderboard', [PointController::class, 'leaderboard'])->name('leaderboard');
+
+Route::resource('user', App\Http\Controllers\UserController::class);
+
+Route::resource('matapel', App\Http\Controllers\MatapelController::class);

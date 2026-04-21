@@ -113,6 +113,20 @@
             </a>
         </li>
 
+        <li class="nav-item {{ request()->is('user*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('user.index') }}">
+                <i class="menu-icon mdi mdi-account-multiple"></i>
+                <span class="menu-title">Manajemen User</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->is('matapel*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('matapel.index') }}">
+                <i class="menu-icon mdi mdi-book-open-page-variant"></i>
+                <span class="menu-title">Mata Pelajaran</span>
+            </a>
+        </li>
+
 
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">
