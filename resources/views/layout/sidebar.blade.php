@@ -127,6 +127,13 @@
             </a>
         </li>
 
+        <li class="nav-item {{ request()->is('places*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('places.index') }}">
+                <i class="menu-icon mdi mdi-map-marker-radius"></i>
+                <span class="menu-title">Lokasi Absensi</span>
+            </a>
+        </li>
+
 
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">

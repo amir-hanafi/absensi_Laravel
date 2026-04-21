@@ -18,7 +18,7 @@ class KelasSeeder extends Seeder
 
         foreach ($gurus as $index => $guru) {
 
-            // Setiap guru punya 2 kelas
+            
             Kelas::create([
                 'nama_kelas' => 'X-IPA-' . ($index + 1),
                 'guru_id'    => $guru->id,

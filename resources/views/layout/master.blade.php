@@ -24,6 +24,8 @@
     <!-- end common css -->
 
     @stack('style')
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 
 <body data-base-url="{{ url('/') }}">
@@ -73,6 +75,9 @@
             }
         });
     </script>
+
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </body>
 
 </html>
