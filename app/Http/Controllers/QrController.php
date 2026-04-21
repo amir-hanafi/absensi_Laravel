@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\QrToken;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use App\Models\Jadwal;
-use App\Models\JadwalSekolah;
+// use App\Models\Jadwal;
+// use App\Models\JadwalSekolah;
 
 /**
  * @class QrController
@@ -54,43 +54,7 @@ class QrController extends Controller
      */
     public function getCurrentToken()
     {
-        $hariMap = [
-            'Monday' => 'Senin',
-            'Tuesday' => 'Selasa',
-            'Wednesday' => 'Rabu',
-            'Thursday' => 'Kamis',
-            'Friday' => 'Jumat',
-            'Saturday' => 'Sabtu',
-            'Sunday' => 'Minggu',
-        ];
-
-        $today = $hariMap[Carbon::now()->format('l')];
-        $now = Carbon::now()->format('H:i:s');
-
-        $jamSekarang = JadwalSekolah::where('hari', $today)
-            ->where('jam_mulai', '<=', $now)
-            ->where('jam_selesai', '>=', $now)
-            ->first();
-
-        if (!$jamSekarang) {
-            return response()->json([
-                "message" => "Tidak ada jam pelajaran saat ini"
-            ], 404);
-        }
-
-        $jadwal = Jadwal::where('hari', $today)
-            ->where('jam_ke', $jamSekarang->jam_ke)
-            ->first();
-
-        if (!$jadwal) {
-            return response()->json([
-                "message" => "Tidak ada jadwal saat ini"
-            ], 404);
-        }
-
-        $qr = QrToken::where('jadwal_id', $jadwal->id)
-            ->latest()
-            ->first();
+        $qr = QrToken::latest()->first();
 
         if (!$qr) {
             return response()->json([
@@ -98,9 +62,14 @@ class QrController extends Controller
             ], 404);
         }
 
+        if (Carbon::now()->greaterThan($qr->expired_at)) {
+            return response()->json([
+                "message" => "Token sudah expired"
+            ], 400);
+        }
+
         return response()->json([
             "token" => $qr->token,
-            "jadwal_id" => $jadwal->id,
             "expired_at" => $qr->expired_at
         ]);
     }

@@ -98,23 +98,35 @@ $(function(){initNavTree('api_8php_source.html','',''); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>use App\Http\Controllers\AttendanceController;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>use App\Http\Controllers\QrController;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>use App\Http\Controllers\JadwalController;</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>Route::post(<span class="stringliteral">&#39;/login&#39;</span>, [AuthController::class, <span class="stringliteral">&#39;apiLogin&#39;</span>]);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>Route::post(<span class="stringliteral">&#39;/logout&#39;</span>, [AuthController::class, <span class="stringliteral">&#39;apiLogout&#39;</span>]);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>Route::get(<span class="stringliteral">&#39;/qr-token/{jadwal}&#39;</span>, [QrController::class, <span class="stringliteral">&#39;getToken&#39;</span>]);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>Route::get(<span class="stringliteral">&#39;/qr-token-current&#39;</span>, [QrController::class, <span class="stringliteral">&#39;getCurrentToken&#39;</span>]);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>Route::middleware(<span class="stringliteral">&#39;auth:sanctum&#39;</span>)-&gt;group(<span class="keyword">function</span> () {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    Route::post(<span class="stringliteral">&#39;/scan-qr&#39;</span>, [AttendanceController::class, <span class="stringliteral">&#39;scanQr&#39;</span>]);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>});</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>Route::middleware(<span class="stringliteral">&#39;auth:sanctum&#39;</span>)-&gt;get(<span class="stringliteral">&#39;/jadwal-sekarang&#39;</span>, [JadwalController::class, <span class="stringliteral">&#39;sekarang&#39;</span>]);</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>use App\Http\Controllers\MarketplaceController;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>Route::post(<span class="stringliteral">&#39;/login&#39;</span>, [AuthController::class, <span class="stringliteral">&#39;apiLogin&#39;</span>]);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>Route::post(<span class="stringliteral">&#39;/logout&#39;</span>, [AuthController::class, <span class="stringliteral">&#39;apiLogout&#39;</span>]);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>Route::get(<span class="stringliteral">&#39;/qr-token/{jadwal}&#39;</span>, [QrController::class, <span class="stringliteral">&#39;getToken&#39;</span>]);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>Route::get(<span class="stringliteral">&#39;/qr-token-current&#39;</span>, [QrController::class, <span class="stringliteral">&#39;getCurrentToken&#39;</span>]);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>Route::middleware(<span class="stringliteral">&#39;auth:sanctum&#39;</span>)-&gt;group(<span class="keyword">function</span> () {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    Route::post(<span class="stringliteral">&#39;/scan-qr&#39;</span>, [AttendanceController::class, <span class="stringliteral">&#39;scanQr&#39;</span>]);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    Route::get(<span class="stringliteral">&#39;/user/points&#39;</span>, [MarketplaceController::class, <span class="stringliteral">&#39;getPoints&#39;</span>]);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    Route::get(<span class="stringliteral">&#39;/user/tokens&#39;</span>, [MarketplaceController::class, <span class="stringliteral">&#39;getTokens&#39;</span>]);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>});</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>Route::middleware(<span class="stringliteral">&#39;auth:sanctum&#39;</span>)-&gt;get(<span class="stringliteral">&#39;/jadwal-sekarang&#39;</span>, [JadwalController::class, <span class="stringliteral">&#39;sekarang&#39;</span>]);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>Route::middleware(<span class="stringliteral">&#39;auth:sanctum&#39;</span>)-&gt;get(<span class="stringliteral">&#39;/marketplace&#39;</span>, <span class="keyword">function</span> () {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    return \App\Models\FlexibilityItem::all();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>});</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>Route::middleware(<span class="stringliteral">&#39;auth:sanctum&#39;</span>)-&gt;post(<span class="stringliteral">&#39;/marketplace/buy/{id}&#39;</span>, [MarketplaceController::class, <span class="stringliteral">&#39;buy&#39;</span>]);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>Route::middleware(<span class="stringliteral">&#39;auth:sanctum&#39;</span>)-&gt;get(<span class="stringliteral">&#39;/user/ledger&#39;</span>, [MarketplaceController::class, <span class="stringliteral">&#39;getLedger&#39;</span>]);</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

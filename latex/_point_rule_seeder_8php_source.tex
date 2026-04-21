@@ -1,0 +1,48 @@
+\doxysection{Point\+Rule\+Seeder.\+php}
+\hypertarget{_point_rule_seeder_8php_source}{}\label{_point_rule_seeder_8php_source}\index{database/seeders/PointRuleSeeder.php@{database/seeders/PointRuleSeeder.php}}
+\doxymbox{\hyperlink{_point_rule_seeder_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }Database\(\backslash\)Seeders;}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00005}00005\ use\ Illuminate\(\backslash\)Database\(\backslash\)Seeder;}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00006}00006\ use\ App\(\backslash\)Models\(\backslash\)PointRule;}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00008}00008\ \textcolor{keyword}{class\ }PointRuleSeeder\ \textcolor{keyword}{extends}\ Seeder}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ run():\ void}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00011}00011\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00012}00012\ \ \ \ \ \ \ \ \ PointRule::truncate();\ \textcolor{comment}{//\ reset\ biar\ tidak\ dobel}}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00014}00014\ \ \ \ \ \ \ \ \ PointRule::insert([}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rule\_name'}\ =>\ \textcolor{stringliteral}{'Datang\ Sangat\ Awal'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'condition\_operator'}\ =>\ \textcolor{charliteral}{'<'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'condition\_value'}\ =>\ \textcolor{stringliteral}{'01:00:00'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'point\_modifier'}\ =>\ 5,}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'created\_at'}\ =>\ now(),}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'updated\_at'}\ =>\ now(),}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rule\_name'}\ =>\ \textcolor{stringliteral}{'Datang\ Tepat\ Waktu'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'condition\_operator'}\ =>\ \textcolor{stringliteral}{'between'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'condition\_value'}\ =>\ \textcolor{stringliteral}{'01:01:00-\/04:39:00'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'point\_modifier'}\ =>\ 3,}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'created\_at'}\ =>\ now(),}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'updated\_at'}\ =>\ now(),}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ [}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'rule\_name'}\ =>\ \textcolor{stringliteral}{'Terlambat'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'condition\_operator'}\ =>\ \textcolor{charliteral}{'>'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'condition\_value'}\ =>\ \textcolor{stringliteral}{'05:40:00'},}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'point\_modifier'}\ =>\ -\/3,}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'created\_at'}\ =>\ now(),}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'updated\_at'}\ =>\ now(),}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00041}00041\ \}}
+\DoxyCodeLine{\Hypertarget{_point_rule_seeder_8php_source_l00042}00042\ }
+
+\end{DoxyCode}

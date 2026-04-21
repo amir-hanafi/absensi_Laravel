@@ -1,0 +1,129 @@
+\doxysection{Marketplace\+Controller.\+php}
+\hypertarget{_marketplace_controller_8php_source}{}\label{_marketplace_controller_8php_source}\index{app/Http/Controllers/MarketplaceController.php@{app/Http/Controllers/MarketplaceController.php}}
+\doxymbox{\hyperlink{_marketplace_controller_8php}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00001}00001\ <?php}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00003}00003\ \textcolor{keyword}{namespace\ }App\(\backslash\)Http\(\backslash\)Controllers;}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00005}00005\ use\ App\(\backslash\)Models\(\backslash\)FlexibilityItem;}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00006}00006\ use\ App\(\backslash\)Models\(\backslash\)PointLedger;}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00007}00007\ use\ App\(\backslash\)Models\(\backslash\)UserToken;}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00008}00008\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)Auth;}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00009}00009\ use\ Illuminate\(\backslash\)Support\(\backslash\)Facades\(\backslash\)DB;}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00011}00011\ \textcolor{keyword}{class\ }MarketplaceController\ \textcolor{keyword}{extends}\ Controller}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00013}00013\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ index()}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00014}00014\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00015}00015\ \ \ \ \ \ \ \ \ \$items\ =\ FlexibilityItem::all();}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ view(\textcolor{stringliteral}{'marketplace.index'},\ compact(\textcolor{stringliteral}{'items'}));}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ buy(\$id)}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00022}00022\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ DB::transaction(\textcolor{keyword}{function}\ ()\ use\ (\$id)\ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \$userId\ =\ Auth::id();}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \$hasAvailableToken\ =\ UserToken::where(\textcolor{stringliteral}{'user\_id'},\ \$userId)}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'status'},\ \textcolor{stringliteral}{'AVAILABLE'})}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/>exists();}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$hasAvailableToken)\ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response()-\/>json([}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'message'}\ =>\ \textcolor{stringliteral}{'Masih\ ada\ token\ yang\ belum\ digunakan'}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],\ 400);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \$item\ =\ FlexibilityItem::findOrFail(\$id);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \$last\ =\ PointLedger::where(\textcolor{stringliteral}{'user\_id'},\ \$userId)-\/>latest()-\/>first();}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \$balance\ =\ \$last\ ?\ \$last-\/>current\_balance\ :\ 0;}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\$balance\ <\ \$item-\/>point\_cost)\ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response()-\/>json([}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'message'}\ =>\ \textcolor{stringliteral}{'Poin\ tidak\ cukup'}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ],\ 400);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \$newBalance\ =\ \$balance\ -\/\ \$item-\/>point\_cost;}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ PointLedger::create([}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'user\_id'}\ =>\ \$userId,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'transaction\_type'}\ =>\ \textcolor{stringliteral}{'SPEND'},}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'amount'}\ =>\ -\/\$item-\/>point\_cost,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'current\_balance'}\ =>\ \$newBalance,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'description'}\ =>\ \textcolor{stringliteral}{'Beli\ '}\ .\ \$item-\/>item\_name,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ UserToken::create([}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'user\_id'}\ =>\ \$userId,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'item\_id'}\ =>\ \$item-\/>id,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'status'}\ =>\ \textcolor{stringliteral}{'AVAILABLE'},}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response()-\/>json([}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'message'}\ =>\ \textcolor{stringliteral}{'Berhasil\ membeli'}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00067}00067\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00068}00068\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00070}00070\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getPoints()}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00072}00072\ \ \ \ \ \ \ \ \ \$userId\ =\ Auth::id();}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00074}00074\ \ \ \ \ \ \ \ \ \$last\ =\ PointLedger::where(\textcolor{stringliteral}{'user\_id'},\ \$userId)}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>latest()}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>first();}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response()-\/>json([}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'points'}\ =>\ \$last\ ?\ \$last-\/>current\_balance\ :\ 0}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00080}00080\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00081}00081\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getTokens()}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00084}00084\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00085}00085\ \ \ \ \ \ \ \ \ \$userId\ =\ Auth::id();}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00087}00087\ \ \ \ \ \ \ \ \ \$tokens\ =\ UserToken::where(\textcolor{stringliteral}{'user\_id'},\ \$userId)}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>where(\textcolor{stringliteral}{'status'},\ \textcolor{stringliteral}{'AVAILABLE'})}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>with(\textcolor{stringliteral}{'item'})\ \textcolor{comment}{//\ relasi\ ke\ item}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>get()}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>map(\textcolor{keyword}{function}\ (\$token)\ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'id'}\ =>\ \$token-\/>id,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'item\_name'}\ =>\ \$token-\/>item-\/>item\_name}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response()-\/>json([}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'tokens'}\ =>\ \$tokens}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00100}00100\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00101}00101\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00103}00103\ \ \ \ \ \textcolor{keyword}{public}\ \textcolor{keyword}{function}\ getLedger()}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00104}00104\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00105}00105\ \ \ \ \ \ \ \ \ \$userId\ =\ Auth::id();}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00107}00107\ \ \ \ \ \ \ \ \ \$ledgers\ =\ PointLedger::where(\textcolor{stringliteral}{'user\_id'},\ \$userId)}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>latest()}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>get()}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ -\/>map(\textcolor{keyword}{function}\ (\$item)\ \{}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'type'}\ =>\ \$item-\/>transaction\_type,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'amount'}\ =>\ \$item-\/>amount,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'description'}\ =>\ \$item-\/>description,}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date'}\ =>\ \$item-\/>created\_at-\/>format(\textcolor{stringliteral}{'d\ M\ Y\ H:i'})}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response()-\/>json([}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'data'}\ =>\ \$ledgers}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00121}00121\ \ \ \ \ \ \ \ \ ]);}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00122}00122\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_marketplace_controller_8php_source_l00123}00123\ \}}
+
+\end{DoxyCode}

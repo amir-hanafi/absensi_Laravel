@@ -66,9 +66,7 @@ return new class extends Migration
 
             /// Foreign key ke tabel jadwal
             /// Menentukan jadwal yang terkait dengan absensi
-            $table->foreignId('jadwal_id')
-                ->constrained('jadwal')
-                ->cascadeOnDelete();
+            
 
             /// Kolom created_at dan updated_at
             $table->timestamps();

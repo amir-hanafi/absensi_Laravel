@@ -20,7 +20,7 @@ class QrToken extends Model
      * @var array
      */
     protected $fillable = [
-        'jadwal_id', ///< ID jadwal terkait
+        // 'jadwal_id', ///< ID jadwal terkait
         'token',     ///< Token QR unik
         'expired_at' ///< Waktu kadaluarsa token
     ];
@@ -32,10 +32,10 @@ class QrToken extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function jadwal()
-    {
-        return $this->belongsTo(Jadwal::class);
-    }
+    // public function jadwal()
+    // {
+    //     return $this->belongsTo(Jadwal::class);
+    // }
 
     /**
      * @brief Relasi ke model Attendance.

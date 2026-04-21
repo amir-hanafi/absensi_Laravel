@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['user_2ephp_0',['User.php',['../_user_8php.html',1,'']]],
-  ['userseeder_2ephp_1',['UserSeeder.php',['../_user_seeder_8php.html',1,'']]]
+  ['siswa_2ephp_0',['Siswa.php',['../_siswa_8php.html',1,'']]],
+  ['siswaseeder_2ephp_1',['SiswaSeeder.php',['../_siswa_seeder_8php.html',1,'']]]
 ];

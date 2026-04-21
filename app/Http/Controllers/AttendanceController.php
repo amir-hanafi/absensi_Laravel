@@ -48,7 +48,7 @@ class AttendanceController extends Controller
         // CEK SUDAH ABSEN
         // ======================
         $alreadyValid = Attendance::where('user_id', $user->id)
-            ->where('jadwal_id', $token->jadwal_id)
+            ->whereDate('scan_time', now()->toDateString())
             ->where('status', 'valid')
             ->exists();
 
@@ -95,7 +95,6 @@ class AttendanceController extends Controller
         $attendance = Attendance::create([
             'qr_token_id' => $token->id,
             'user_id' => $user->id,
-            'jadwal_id' => $token->jadwal_id,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'distance' => $distance,
@@ -106,7 +105,9 @@ class AttendanceController extends Controller
         // ======================
         // HITUNG TELAT
         // ======================
-        $jamMasuk = "06:55:00";
+        $ruleTerlambat = PointRule::where('rule_name', 'Terlambat')->first();
+
+        $jamMasuk = $ruleTerlambat->condition_value;
 
         $startTime = Carbon::parse($jamMasuk);
         $scanTime = Carbon::parse($attendance->scan_time);

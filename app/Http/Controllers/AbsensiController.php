@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Attendance;
 
 
 class AbsensiController extends Controller
@@ -41,7 +42,7 @@ class AbsensiController extends Controller
     public function edit(Absensi $absensi)
     {
         $users = User::all();
-        return view('absensi.edit', compact('absensi','users'));
+        return view('absensi.edit', compact('absensi', 'users'));
     }
 
     public function update(Request $request, Absensi $absensi)
@@ -60,8 +61,19 @@ class AbsensiController extends Controller
 
     public function destroy(Absensi $absensi)
     {
+        // Cek apakah ada relasi ke attendance
+        if ($absensi->attendance_id) {
+
+            $attendance = Attendance::find($absensi->attendance_id);
+
+            if ($attendance) {
+                $attendance->delete();
+            }
+        }
+
+        // Hapus absensi
         $absensi->delete();
 
-        return back()->with('success','Absensi dihapus');
+        return back()->with('success', 'Absensi dan attendance terkait berhasil dihapus');
     }
 }

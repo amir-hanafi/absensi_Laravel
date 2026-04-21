@@ -9,22 +9,34 @@
 \DoxyCodeLine{\Hypertarget{api_8php_source_l00005}00005\ use\ App\(\backslash\)Http\(\backslash\)Controllers\(\backslash\)AttendanceController;}
 \DoxyCodeLine{\Hypertarget{api_8php_source_l00006}00006\ use\ App\(\backslash\)Http\(\backslash\)Controllers\(\backslash\)QrController;}
 \DoxyCodeLine{\Hypertarget{api_8php_source_l00007}00007\ use\ App\(\backslash\)Http\(\backslash\)Controllers\(\backslash\)JadwalController;}
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00008}00008\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00021}00021\ Route::post(\textcolor{stringliteral}{'/login'},\ [AuthController::class,\ \textcolor{stringliteral}{'apiLogin'}]);}
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00022}00022\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00029}00029\ Route::post(\textcolor{stringliteral}{'/logout'},\ [AuthController::class,\ \textcolor{stringliteral}{'apiLogout'}]);}
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00037}00037\ Route::get(\textcolor{stringliteral}{'/qr-\/token/\{jadwal\}'},\ [QrController::class,\ \textcolor{stringliteral}{'getToken'}]);}
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00038}00038\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00044}00044\ Route::get(\textcolor{stringliteral}{'/qr-\/token-\/current'},\ [QrController::class,\ \textcolor{stringliteral}{'getCurrentToken'}]);}
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00045}00045\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00049}00049\ Route::middleware(\textcolor{stringliteral}{'auth:sanctum'})-\/>group(\textcolor{keyword}{function}\ ()\ \{}
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00050}00050\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00059}00059\ \ \ \ \ Route::post(\textcolor{stringliteral}{'/scan-\/qr'},\ [AttendanceController::class,\ \textcolor{stringliteral}{'scanQr'}]);}
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00060}00060\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00061}00061\ \});}
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00062}00062\ }
-\DoxyCodeLine{\Hypertarget{api_8php_source_l00069}00069\ Route::middleware(\textcolor{stringliteral}{'auth:sanctum'})-\/>get(\textcolor{stringliteral}{'/jadwal-\/sekarang'},\ [JadwalController::class,\ \textcolor{stringliteral}{'sekarang'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00008}00008\ use\ App\(\backslash\)Http\(\backslash\)Controllers\(\backslash\)MarketplaceController;}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00022}00022\ Route::post(\textcolor{stringliteral}{'/login'},\ [AuthController::class,\ \textcolor{stringliteral}{'apiLogin'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00030}00030\ Route::post(\textcolor{stringliteral}{'/logout'},\ [AuthController::class,\ \textcolor{stringliteral}{'apiLogout'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00038}00038\ Route::get(\textcolor{stringliteral}{'/qr-\/token/\{jadwal\}'},\ [QrController::class,\ \textcolor{stringliteral}{'getToken'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00045}00045\ Route::get(\textcolor{stringliteral}{'/qr-\/token-\/current'},\ [QrController::class,\ \textcolor{stringliteral}{'getCurrentToken'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00050}00050\ Route::middleware(\textcolor{stringliteral}{'auth:sanctum'})-\/>group(\textcolor{keyword}{function}\ ()\ \{}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00060}00060\ \ \ \ \ Route::post(\textcolor{stringliteral}{'/scan-\/qr'},\ [AttendanceController::class,\ \textcolor{stringliteral}{'scanQr'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00062}00062\ \ \ \ \ Route::get(\textcolor{stringliteral}{'/user/points'},\ [MarketplaceController::class,\ \textcolor{stringliteral}{'getPoints'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00063}00063\ \ \ \ \ Route::get(\textcolor{stringliteral}{'/user/tokens'},\ [MarketplaceController::class,\ \textcolor{stringliteral}{'getTokens'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00065}00065\ \});}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00073}00073\ Route::middleware(\textcolor{stringliteral}{'auth:sanctum'})-\/>get(\textcolor{stringliteral}{'/jadwal-\/sekarang'},\ [JadwalController::class,\ \textcolor{stringliteral}{'sekarang'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00075}00075\ Route::middleware(\textcolor{stringliteral}{'auth:sanctum'})-\/>get(\textcolor{stringliteral}{'/marketplace'},\ \textcolor{keyword}{function}\ ()\ \{}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00076}00076\ \ \ \ \ return\ \(\backslash\)App\(\backslash\)Models\(\backslash\)FlexibilityItem::all();}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00077}00077\ \});}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00079}00079\ Route::middleware(\textcolor{stringliteral}{'auth:sanctum'})-\/>post(\textcolor{stringliteral}{'/marketplace/buy/\{id\}'},\ [MarketplaceController::class,\ \textcolor{stringliteral}{'buy'}]);}
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{api_8php_source_l00081}00081\ Route::middleware(\textcolor{stringliteral}{'auth:sanctum'})-\/>get(\textcolor{stringliteral}{'/user/ledger'},\ [MarketplaceController::class,\ \textcolor{stringliteral}{'getLedger'}]);}
 
 \end{DoxyCode}

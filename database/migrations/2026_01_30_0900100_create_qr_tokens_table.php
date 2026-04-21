@@ -34,9 +34,9 @@ return new class extends Migration
 
             /// Foreign key ke tabel jadwal
             /// Menentukan jadwal terkait token QR
-            $table->foreignId('jadwal_id')
-                ->constrained('jadwal')
-                ->cascadeOnDelete();
+            // $table->foreignId('jadwal_id')
+            //     ->constrained('jadwal')
+            //     ->cascadeOnDelete();
 
             /// Token QR unik
             $table->string('token')->unique();
