@@ -100,3 +100,7 @@ Route::resource('kelas', App\Http\Controllers\KelasController::class);
 Route::resource('jadwal-sekolah', App\Http\Controllers\JadwalSekolahController::class);
 
 Route::resource('guru-matapel', App\Http\Controllers\GuruMatapelController::class);
+
+Route::get('/get-guru-by-matapel/{id}', [App\Http\Controllers\JadwalController::class, 'getGuruByMatapel']);
+
+Route::get('/get-guru-available', [JadwalController::class, 'getGuruAvailable']);

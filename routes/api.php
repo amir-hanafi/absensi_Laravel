@@ -79,3 +79,9 @@ Route::middleware('auth:sanctum')->get('/marketplace', function () {
 Route::middleware('auth:sanctum')->post('/marketplace/buy/{id}', [MarketplaceController::class, 'buy']);
 
 Route::middleware('auth:sanctum')->get('/user/ledger', [MarketplaceController::class, 'getLedger']);
+
+Route::middleware('auth:sanctum')->get('/jadwal', [JadwalController::class, 'apiJadwal']);
+
+Route::middleware('auth:sanctum')->get('/jadwal-siswa', [JadwalController::class, 'jadwalSiswa']);
+
+Route::middleware('auth:sanctum')->get('/jadwal-guru', [JadwalController::class, 'jadwalGuru']);
