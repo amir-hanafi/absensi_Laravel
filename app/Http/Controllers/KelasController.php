@@ -26,6 +26,7 @@ class KelasController extends Controller
     {
         $request->validate([
             'nama_kelas' => 'required',
+            'tingkat_kelas' => 'required|integer|min:10|max:12',
             'guru_id' => 'required'
         ]);
 
@@ -54,6 +55,7 @@ class KelasController extends Controller
     {
         $request->validate([
             'nama_kelas' => 'required',
+            'tingkat_kelas' => 'required|integer|min:10|max:12',
             'guru_id' => 'required'
         ]);
 

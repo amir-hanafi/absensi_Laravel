@@ -37,23 +37,24 @@ return new class extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
 
-            /// Primary key auto increment
             $table->id();
 
-            /// Nomor Induk Siswa (harus unik)
             $table->string('nis')->unique();
-
-            /// Nama lengkap siswa
             $table->string('nama');
 
-            /// Relasi ke tabel kelas
-            /// Menunjukkan siswa berada di kelas mana
-            $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete();
+            /// 🔥 Tahun masuk (penting untuk hitung tingkat)
+            $table->year('tahun_masuk');
 
-            /// Relasi ke tabel users untuk login siswa
+            /// 🔥 Tahun ajaran (opsional, misal 2025/2026)
+            
+
+            /// Relasi ke kelas (boleh berubah tiap tahun)
+            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->nullOnDelete();
+
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
 
-            /// Kolom created_at dan updated_at
+            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
+
             $table->timestamps();
         });
     }

@@ -22,8 +22,9 @@ class Kelas extends Model
      * @var array
      */
     protected $fillable = [
-        'nama_kelas', ///< Nama kelas (contoh: 10 IPA 1)
-        'guru_id',    ///< ID guru wali kelas
+        'nama_kelas',
+        'tingkat_kelas', // 🔥 tambahkan ini
+        'guru_id',
     ];
 
     /**

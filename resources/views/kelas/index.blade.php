@@ -26,6 +26,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Tingkat Kelas</th>
                         <th>Nama Kelas</th>
                         <th>Pembimbing/Wali Kelas</th>
                         <th width="200">Aksi</th>
@@ -37,6 +38,7 @@
                     @forelse ($kelas as $key => $k)
                     <tr>
                         <td>{{ $key+1 }}</td>
+                        <td>{{ $k->tingkat_kelas }}</td>
                         <td>{{ $k->nama_kelas }}</td>
                         <td>{{ $k->guru->nama ?? '-' }}</td>
 

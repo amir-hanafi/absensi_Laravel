@@ -105,3 +105,5 @@ Route::get('/get-guru-by-matapel/{id}', [App\Http\Controllers\JadwalController::
 
 Route::get('/get-guru-available', [JadwalController::class, 'getGuruAvailable']);
 
+Route::get('/get-kelas-by-tingkat', [App\Http\Controllers\SiswaController::class, 'getKelasByTingkat']);
+

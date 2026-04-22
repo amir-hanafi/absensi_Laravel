@@ -35,11 +35,13 @@ return new class extends Migration
             /// Primary key auto increment
             $table->id();
 
+            /// 🔥 Tingkat kelas (10, 11, 12)
+            $table->integer('tingkat_kelas');
+
             /// Nama kelas (contoh: X RPL 1, XI TKJ 2, dll)
             $table->string('nama_kelas');
 
             /// Relasi ke tabel guru
-            /// Menandakan kelas ini diajar oleh guru tertentu
             $table->foreignId('guru_id')->constrained('guru')->cascadeOnDelete();
 
             /// Kolom created_at dan updated_at

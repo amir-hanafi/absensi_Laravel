@@ -106,12 +106,12 @@
             </a>
         </li>
 
-        <li class="nav-item {{ request()->is('marketplace*') ? 'active' : '' }}">
+        {{-- <li class="nav-item {{ request()->is('marketplace*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('marketplace.index') }}">
                 <i class="menu-icon mdi mdi-cart"></i>
                 <span class="menu-title">Marketplace Poin</span>
             </a>
-        </li>
+        </li> --}}
 
         <li class="nav-item {{ request()->is('user*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('user.index') }}">

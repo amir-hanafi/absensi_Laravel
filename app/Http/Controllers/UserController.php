@@ -27,19 +27,35 @@ class UserController extends Controller
 
     public function create()
     {
-        $kelas = Kelas::all();
+        $kelas = Kelas::where('tingkat_kelas', 10)->get();
 
         return view('user.create', compact('kelas'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        // dd($request->all());
+
+        // 🔥 VALIDASI GLOBAL + ROLE
+        $rules = [
             'username' => 'required|unique:users',
             'password' => 'required|min:5',
             'role'     => 'required'
-        ]);
+        ];
 
+
+
+        // 🔥 tambahan jika siswa
+        if ($request->role == 'siswa') {
+            $rules['tahun_masuk'] = 'required|integer';
+            $rules['kelas_id'] = 'required';
+        }
+
+        $request->validate($rules);
+
+        // ========================
+        // BARU BUAT USER
+        // ========================
         $user = User::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
@@ -47,7 +63,7 @@ class UserController extends Controller
         ]);
 
         // ========================
-        // JIKA GURU
+        // GURU
         // ========================
         if ($request->role == 'guru') {
 
@@ -68,10 +84,17 @@ class UserController extends Controller
         }
 
         // ========================
-        // JIKA SISWA
+        // SISWA
         // ========================
         if ($request->role == 'siswa') {
 
+            // 🔥 HITUNG STATUS DULU
+            $tahunSekarang = date('Y');
+            $selisih = $tahunSekarang - $request->tahun_masuk;
+
+            $status = ($selisih >= 3) ? 'nonaktif' : 'aktif';
+
+            // 🔥 GENERATE NIS
             $lastSiswa = Siswa::orderBy('id', 'desc')->first();
 
             $nextNumber = $lastSiswa
@@ -80,13 +103,20 @@ class UserController extends Controller
 
             $nis = 'NIS' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
+            // 🔥 SIMPAN
             Siswa::create([
-                'nis'      => $nis,
-                'nama'     => $request->username,
+                'nis' => $nis,
+                'nama' => $request->username,
+                'tahun_masuk' => $request->tahun_masuk,
                 'kelas_id' => $request->kelas_id,
-                'user_id'  => $user->id
+                'status' => $status,
+                'user_id' => $user->id
             ]);
         }
+
+
+
+
 
         return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan');
     }
@@ -182,6 +212,7 @@ class UserController extends Controller
                 Siswa::create([
                     'nis'      => $nis,
                     'nama'     => $request->username,
+                    'tahun_masuk'  => $request->tahun_masuk,
                     'kelas_id' => $request->kelas_id,
                     'user_id'  => $user->id
                 ]);

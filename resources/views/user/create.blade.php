@@ -39,7 +39,7 @@
                         <hr>
                         <h5>Data Guru</h5>
 
-                        
+
                         <input type="text" name="no_hp" class="form-control mb-2" placeholder="No HP">
                     </div>
 
@@ -48,17 +48,26 @@
                         <hr>
                         <h5>Data Siswa</h5>
 
-                        
-                        
+                        {{-- Tahun Masuk --}}
+                        <div class="mb-2">
+                            <label>Tahun Masuk</label>
+                            <select name="tahun_masuk" >
+                                @for ($i = date('Y'); $i >= 2000; $i--)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
 
-                        <select name="kelas_id" >
-                            <option value="">-- Pilih Kelas --</option>
-                            @foreach ($kelas as $k)
-                                <option value="{{ $k->id }}" {{ old('kelas_id') == $k->id ? 'selected' : '' }}>
-                                    {{ $k->nama_kelas }}
-                                </option>
-                            @endforeach
-                        </select>
+                        {{-- Kelas Dinamis --}}
+                        <div class="mb-2">
+                            <label>Kelas</label>
+                            <select name="kelas_id">
+                                <option value="">-- Pilih Kelas --</option>
+                                @foreach ($kelas as $k)
+                                    <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     <button class="btn btn-primary">Simpan</button>
@@ -90,6 +99,37 @@
 
             // saat berubah
             roleSelect.addEventListener('change', toggleForm);
+
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const tahunInput = document.getElementById('tahun_masuk');
+            const kelasSelect = document.getElementById('kelas');
+
+            if (!tahunInput) return;
+
+            tahunInput.addEventListener('input', function() {
+
+                let tahunMasuk = this.value;
+                let tahunSekarang = new Date().getFullYear();
+
+                if (!tahunMasuk) return;
+
+                let tingkat = (tahunSekarang - tahunMasuk) + 10;
+
+                // validasi sederhana
+                if (tingkat < 10 || tingkat > 12) {
+                    kelasSelect.innerHTML = '<option>Tingkat tidak valid</option>';
+                    return;
+                }
+
+                kelasSelect.innerHTML = '<option>Loading...</option>';
+
+
+            });
 
         });
     </script>
