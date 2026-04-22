@@ -33,8 +33,6 @@
         </select>
     </div>
 
-    
-
     <div class="mb-3">
         <label>Mata Pelajaran</label>
         <select name="matapel_id" id="matapel" class="form-control">
@@ -52,6 +50,8 @@
             @endforeach
         </select>
     </div>
+
+    
 
     <br><br>
 

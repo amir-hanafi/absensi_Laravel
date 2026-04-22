@@ -250,16 +250,24 @@ class JadwalController extends Controller
 
     public function getGuruAvailable(Request $request)
     {
-        $jadwalSekolah = JadwalSekolah::find($request->jadwal_sekolah_id);
-
-        $guruTerpakai = Jadwal::where('jadwal_sekolah_id', $request->jadwal_sekolah_id)
-            ->pluck('guru_id');
-
-        $guru = Guru::where('matapel_id', $request->matapel_id)
-            ->whereNotIn('id', $guruTerpakai)
+        // ambil guru yang mengajar mapel (pakai pivot)
+        $guru = DB::table('guru_matapel')
+            ->join('guru', 'guru.id', '=', 'guru_matapel.guru_id')
+            ->where('guru_matapel.matapel_id', $request->matapel_id)
+            ->select('guru.id', 'guru.nama')
             ->get();
 
-        return response()->json($guru);
+        // ambil guru yang sudah dipakai di jadwal ini
+        $guruTerpakai = Jadwal::where('jadwal_sekolah_id', $request->jadwal_sekolah_id)
+            ->pluck('guru_id')
+            ->toArray();
+
+        // filter manual (biar simple & aman)
+        $guruAvailable = $guru->filter(function ($g) use ($guruTerpakai) {
+            return !in_array($g->id, $guruTerpakai);
+        })->values();
+
+        return response()->json($guruAvailable);
     }
 
     public function apiJadwal()
