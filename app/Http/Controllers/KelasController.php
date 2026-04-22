@@ -36,9 +36,11 @@ class KelasController extends Controller
             ->with('success', 'Data kelas berhasil ditambahkan');
     }
 
-    public function show(Kelas $kela)
+    public function show($id)
     {
-        return view('kelas.show', ['kelas' => $kela]);
+        $kelas = Kelas::with(['guru', 'siswa'])->findOrFail($id);
+
+        return view('kelas.show', compact('kelas'));
     }
 
     public function edit(Kelas $kela)

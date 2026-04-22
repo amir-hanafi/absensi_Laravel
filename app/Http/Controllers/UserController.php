@@ -121,8 +121,10 @@ class UserController extends Controller
         return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan');
     }
 
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::with(['guru', 'siswa'])->findOrFail($id);
+
         return view('user.show', compact('user'));
     }
 

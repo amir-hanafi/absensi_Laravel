@@ -26,19 +26,18 @@ class RoleMiddleware
      *
      * @return Response Response setelah middleware dijalankan
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // Cek apakah user sudah login
+        // Cek login
         if (!Auth::check()) {
             return redirect('/login');
         }
 
-        // Cek apakah role sesuai
-        if (Auth::user()->role !== $role) {
+        // Cek role (bisa banyak)
+        if (!in_array(Auth::user()->role, $roles)) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini');
         }
 
-        // Lanjutkan request
         return $next($request);
     }
 }

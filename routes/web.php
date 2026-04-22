@@ -15,95 +15,101 @@ use App\Http\Controllers\MatapelController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\GuruMatapelController;
+use App\Http\Controllers\JadwalSekolahController;
+use App\Http\Controllers\SiswaController;
 
 /**
- * @file routes/web.php
- * @brief Mendefinisikan route web aplikasi Laravel
- *
- * Route di sini meliputi autentikasi, dashboard, jadwal, kategori penilaian, dan laporan penilaian siswa.
- */
-
-/** 
- * @brief Route untuk guest (belum login)
+ * =========================
+ * GUEST (BELUM LOGIN)
+ * =========================
  */
 Route::middleware('guest')->group(function () {
-    /** @brief Menampilkan halaman login */
     Route::get('/login', fn() => view('auth.login'))->name('login');
-
-    /** @brief Menangani proses login */
     Route::post('/login', [AuthController::class, 'login']);
 });
 
 /**
- * @brief Route untuk user yang sudah login (auth)
- * @note Bagian role admin dikomentari, bisa diaktifkan jika ingin membatasi akses admin
+ * =========================
+ * LOGOUT (HARUS LOGIN)
+ * =========================
  */
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-//     /** @brief Dashboard admin */
-//     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
-//     /** @brief Logout user */
-//     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-// });
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 
+/**
+ * =========================
+ * SEMUA HARUS LOGIN
+ * =========================
+ */
+Route::middleware('auth')->group(function () {
 
-/** @brief Route untuk logout */
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    /**
+     * =========================
+     * SEMUA ROLE BOLEH
+     * =========================
+     */
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-/** @brief Resource route untuk CRUD Jadwal */
-Route::resource('jadwal', JadwalController::class);
+    Route::get('/points', [PointController::class, 'index'])->name('points.index');
+    Route::get('/points/{user}', [PointController::class, 'detail'])->name('points.detail');
 
-/** @brief Resource route untuk CRUD Kategori Penilaian */
-Route::resource('assessment-categories', AssessmentCategoryController::class);
+    Route::get('/leaderboard', [PointController::class, 'leaderboard'])->name('leaderboard');
 
-/** @brief Route menampilkan daftar siswa untuk penilaian */
-Route::get('/penilaian/siswa', [AssessmentController::class, 'daftarSiswa']);
-
-/** @brief Route menampilkan form penilaian untuk siswa tertentu */
-Route::get('/penilaian/{id}', [AssessmentController::class, 'create']);
-
-/** @brief Route untuk menyimpan hasil penilaian */
-Route::post('/penilaian', [AssessmentController::class, 'store']);
-
-/** @brief Route menampilkan daftar laporan penilaian */
-Route::get('/laporan', [AssessmentController::class,'indexLaporan']);
-
-/** @brief Route menampilkan laporan penilaian untuk siswa tertentu */
-Route::get('/laporan/{siswa}', [AssessmentController::class,'laporan']);
+    Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+    Route::post('/marketplace/buy/{id}', [MarketplaceController::class, 'buy'])->name('marketplace.buy');
 
 
-/** @brief Route CRUD absensi */
-Route::resource('absensi', AbsensiController::class);
+    /**
+     * =========================
+     * KHUSUS GURU (ADMIN DILARANG)
+     * =========================
+     */
+    Route::middleware('role:guru')->group(function () {
 
-/** @brief Route dashboard umum */
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/points', [PointController::class, 'index'])->name('points.index');
+        // tetap guru-only? atau mau admin juga?
+        Route::get('/penilaian/siswa', [AssessmentController::class, 'daftarSiswa']);
+        Route::get('/penilaian/{id}', [AssessmentController::class, 'create']);
+        Route::post('/penilaian', [AssessmentController::class, 'store']);
+    });
 
-Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
-Route::post('/marketplace/buy/{id}', [MarketplaceController::class, 'buy'])->name('marketplace.buy');
+    Route::middleware(['auth', 'role:guru,admin'])->group(function () {
+        Route::resource('absensi', AbsensiController::class);
+    });
 
-Route::get('/points/{user}', [PointController::class, 'detail'])->name('points.detail');
 
-Route::resource('point-rules', PointRuleController::class);
+    /**
+     * =========================
+     * KHUSUS ADMIN
+     * =========================
+     */
+    Route::middleware('role:admin')->group(function () {
 
-Route::get('/leaderboard', [PointController::class, 'leaderboard'])->name('leaderboard');
+        Route::resource('jadwal', JadwalController::class);
 
-Route::resource('user', App\Http\Controllers\UserController::class);
+        Route::resource('assessment-categories', AssessmentCategoryController::class);
 
-Route::resource('matapel', App\Http\Controllers\MatapelController::class);
+        Route::get('/laporan', [AssessmentController::class, 'indexLaporan']);
+        Route::get('/laporan/{siswa}', [AssessmentController::class, 'laporan']);
 
-Route::resource('places', App\Http\Controllers\PlaceController::class);
+        Route::resource('point-rules', PointRuleController::class);
 
-Route::resource('kelas', App\Http\Controllers\KelasController::class);
+        Route::resource('user', UserController::class);
 
-Route::resource('jadwal-sekolah', App\Http\Controllers\JadwalSekolahController::class);
+        Route::resource('matapel', MatapelController::class);
 
-Route::resource('guru-matapel', App\Http\Controllers\GuruMatapelController::class);
+        Route::resource('places', PlaceController::class);
 
-Route::get('/get-guru-by-matapel/{id}', [App\Http\Controllers\JadwalController::class, 'getGuruByMatapel']);
+        Route::resource('kelas', KelasController::class);
 
-Route::get('/get-guru-available', [JadwalController::class, 'getGuruAvailable']);
+        Route::resource('jadwal-sekolah', JadwalSekolahController::class);
 
-Route::get('/get-kelas-by-tingkat', [App\Http\Controllers\SiswaController::class, 'getKelasByTingkat']);
+        Route::resource('guru-matapel', GuruMatapelController::class);
 
+        Route::get('/get-guru-by-matapel/{id}', [JadwalController::class, 'getGuruByMatapel']);
+
+        Route::get('/get-guru-available', [JadwalController::class, 'getGuruAvailable']);
+
+        Route::get('/get-kelas-by-tingkat', [SiswaController::class, 'getKelasByTingkat']);
+    });
+});

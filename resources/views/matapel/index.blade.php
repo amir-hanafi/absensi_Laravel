@@ -40,8 +40,8 @@
                         <td>{{ $item->mata_pelajaran }}</td>
 
                         <td>
-                            <a href="{{ route('matapel.show',$item->id) }}"
-                               class="btn btn-info btn-sm">Detail</a>
+                            {{-- <a href="{{ route('matapel.show',$item->id) }}"
+                               class="btn btn-info btn-sm">Detail</a> --}}
 
                             <a href="{{ route('matapel.edit',$item->id) }}"
                                class="btn btn-warning btn-sm">Edit</a>
