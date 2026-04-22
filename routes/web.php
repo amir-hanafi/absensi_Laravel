@@ -13,6 +13,8 @@ use App\Http\Controllers\PointRuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MatapelController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\GuruMatapelController;
 
 /**
  * @file routes/web.php
@@ -92,3 +94,9 @@ Route::resource('user', App\Http\Controllers\UserController::class);
 Route::resource('matapel', App\Http\Controllers\MatapelController::class);
 
 Route::resource('places', App\Http\Controllers\PlaceController::class);
+
+Route::resource('kelas', App\Http\Controllers\KelasController::class);
+
+Route::resource('jadwal-sekolah', App\Http\Controllers\JadwalSekolahController::class);
+
+Route::resource('guru-matapel', App\Http\Controllers\GuruMatapelController::class);

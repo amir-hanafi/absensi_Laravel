@@ -134,6 +134,27 @@
             </a>
         </li>
 
+        <li class="nav-item {{ request()->is('kelas*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('kelas.index') }}">
+                <i class="menu-icon mdi mdi-school"></i>
+                <span class="menu-title">Kelas</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->is('jadwal-sekolah*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('jadwal-sekolah.index') }}">
+                <i class="menu-icon mdi mdi-timetable"></i>
+                <span class="menu-title">Jadwal Sekolah</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->is('guru-matapel*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('guru-matapel.index') }}">
+                <i class="menu-icon mdi mdi-book-open-page-variant"></i>
+                <span class="menu-title">Guru - Mapel</span>
+            </a>
+        </li>
+
 
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST">
