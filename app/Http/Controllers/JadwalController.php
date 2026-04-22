@@ -29,11 +29,33 @@ class JadwalController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
+
     public function index()
     {
-        $jadwal = Jadwal::with(['guru', 'kelas', 'matapel'])->get();
+        $data = Jadwal::with([
+            'jadwalSekolah',
+            'kelas',
+            'guru',
+            'matapel'
+        ])
+            ->join('jadwal_sekolah', 'jadwal.jadwal_sekolah_id', '=', 'jadwal_sekolah.id')
+            ->orderByRaw("
+        CASE 
+            WHEN jadwal_sekolah.hari = 'Senin' THEN 1
+            WHEN jadwal_sekolah.hari = 'Selasa' THEN 2
+            WHEN jadwal_sekolah.hari = 'Rabu' THEN 3
+            WHEN jadwal_sekolah.hari = 'Kamis' THEN 4
+            WHEN jadwal_sekolah.hari = 'Jumat' THEN 5
+            WHEN jadwal_sekolah.hari = 'Sabtu' THEN 6
+            WHEN jadwal_sekolah.hari = 'Minggu' THEN 7
+        END
+    ")
+            ->orderBy('jadwal_sekolah.jam_ke') // 🔥 INI KUNCI UTAMA
+            ->select('jadwal.*')
+            ->get();
 
-        return view('jadwal.index', compact('jadwal'));
+        return view('jadwal.index', compact('data'));
     }
 
     /**
@@ -43,11 +65,12 @@ class JadwalController extends Controller
      */
     public function create()
     {
-        $guru = Guru::all();
-        $kelas = Kelas::all();
-        $matapel = Matapel::all();
-
-        return view('jadwal.create', compact('guru', 'kelas', 'matapel'));
+        return view('jadwal.create', [
+            'jadwalSekolah' => JadwalSekolah::orderBy('hari')->orderBy('jam_ke')->get(),
+            'kelas' => Kelas::all(),
+            'guru' => Guru::all(),
+            'mapel' => Matapel::all()
+        ]);
     }
 
     /**
@@ -58,34 +81,27 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
-            'hari' => 'required',
-            'jam_ke' => 'required',
-            'guru_id' => 'required',
+            'jadwal_sekolah_id' => 'required',
             'kelas_id' => 'required',
-            'matapel_id' => 'required',
+            'guru_id' => 'required',
+            'matapel_id' => 'required'
         ]);
 
-        $kelasBentrok = Jadwal::where('hari', $request->hari)
-            ->where('jam_ke', $request->jam_ke)
-            ->where('kelas_id', $request->kelas_id)
+        // 🔥 CEK BENTROK
+        $cek = Jadwal::where('kelas_id', $request->kelas_id)
+            ->where('jadwal_sekolah_id', $request->jadwal_sekolah_id)
             ->exists();
 
-        $guruBentrok = Jadwal::where('hari', $request->hari)
-            ->where('jam_ke', $request->jam_ke)
-            ->where('guru_id', $request->guru_id)
-            ->exists();
-
-        if ($kelasBentrok || $guruBentrok) {
-            return back()
-                ->withInput()
-                ->with('error_jadwal', 'Hari dan jam pelajaran sama. Silakan mengambil kelas dan guru yang berbeda.');
+        if ($cek) {
+            return back()->with('error', 'Jadwal bentrok untuk kelas ini!');
         }
 
         Jadwal::create($request->all());
 
-        return redirect()->route('jadwal.index')
-            ->with('success', 'Jadwal berhasil ditambahkan');
+        return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil ditambahkan');
     }
 
     /**
@@ -107,14 +123,15 @@ class JadwalController extends Controller
      * @param int $id ID jadwal
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Jadwal $jadwal)
     {
-        $jadwal = Jadwal::findOrFail($id);
-        $guru = Guru::all();
-        $kelas = Kelas::all();
-        $matapel = Matapel::all();
-
-        return view('jadwal.edit', compact('jadwal', 'guru', 'kelas', 'matapel'));
+        return view('jadwal.edit', [
+            'jadwal' => $jadwal,
+            'jadwalSekolah' => JadwalSekolah::orderBy('hari')->orderBy('jam_ke')->get(),
+            'kelas' => Kelas::all(),
+            'guru' => Guru::all(),
+            'mapel' => Matapel::all()
+        ]);
     }
 
     /**
@@ -124,41 +141,27 @@ class JadwalController extends Controller
      * @param int $id ID jadwal
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Jadwal $jadwal)
     {
         $request->validate([
-            'hari' => 'required',
-            'jam_ke' => 'required',
-            'guru_id' => 'required',
+            'jadwal_sekolah_id' => 'required',
             'kelas_id' => 'required',
-            'matapel_id' => 'required',
+            'guru_id' => 'required',
+            'matapel_id' => 'required'
         ]);
 
-        // ❌ CEK KELAS (kecuali data ini sendiri)
-        $kelasBentrok = Jadwal::where('hari', $request->hari)
-            ->where('jam_ke', $request->jam_ke)
-            ->where('kelas_id', $request->kelas_id)
-            ->where('id', '!=', $id)
+        $cek = Jadwal::where('kelas_id', $request->kelas_id)
+            ->where('jadwal_sekolah_id', $request->jadwal_sekolah_id)
+            ->where('id', '!=', $jadwal->id)
             ->exists();
 
-        // ❌ CEK GURU (kecuali data ini sendiri)
-        $guruBentrok = Jadwal::where('hari', $request->hari)
-            ->where('jam_ke', $request->jam_ke)
-            ->where('guru_id', $request->guru_id)
-            ->where('id', '!=', $id)
-            ->exists();
-
-        if ($kelasBentrok || $guruBentrok) {
-            return back()
-                ->withInput()
-                ->with('error_jadwal', 'Hari dan jam pelajaran sama. Silakan mengambil kelas dan guru yang berbeda.');
+        if ($cek) {
+            return back()->with('error', 'Jadwal bentrok untuk kelas ini!');
         }
 
-        $jadwal = Jadwal::findOrFail($id);
         $jadwal->update($request->all());
 
-        return redirect()->route('jadwal.index')
-            ->with('success', 'Jadwal berhasil diupdate');
+        return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil diupdate');
     }
 
     /**
@@ -215,9 +218,7 @@ class JadwalController extends Controller
             ]);
         }
 
-        $jadwal = Jadwal::where('hari', $today)
-            ->where('jam_ke', $jamSekarang->jam_ke)
-            ->first();
+        $jadwal = Jadwal::where('jadwal_sekolah_id', $jamSekarang->id)->first();
 
         if (!$jadwal) {
             return response()->json([
@@ -249,19 +250,13 @@ class JadwalController extends Controller
 
     public function getGuruAvailable(Request $request)
     {
-        $guru = DB::table('guru_matapel')
-            ->join('guru', 'guru.id', '=', 'guru_matapel.guru_id')
-            ->where('guru_matapel.matapel_id', $request->matapel_id)
+        $jadwalSekolah = JadwalSekolah::find($request->jadwal_sekolah_id);
 
-            // ❌ exclude guru yang sudah dipakai
-            ->whereNotIn('guru.id', function ($query) use ($request) {
-                $query->select('guru_id')
-                    ->from('jadwal')
-                    ->where('hari', $request->hari)
-                    ->where('jam_ke', $request->jam_ke);
-            })
+        $guruTerpakai = Jadwal::where('jadwal_sekolah_id', $request->jadwal_sekolah_id)
+            ->pluck('guru_id');
 
-            ->select('guru.id', 'guru.nama')
+        $guru = Guru::where('matapel_id', $request->matapel_id)
+            ->whereNotIn('id', $guruTerpakai)
             ->get();
 
         return response()->json($guru);
@@ -269,19 +264,27 @@ class JadwalController extends Controller
 
     public function apiJadwal()
     {
-        $jadwal = Jadwal::with(['guru', 'kelas', 'matapel'])
+        $jadwal = Jadwal::with(['jadwalSekolah', 'guru', 'kelas', 'matapel'])
+            ->join('jadwal_sekolah', 'jadwal.jadwal_sekolah_id', '=', 'jadwal_sekolah.id')
             ->orderByRaw("
             CASE 
-                WHEN hari = 'Senin' THEN 1
-                WHEN hari = 'Selasa' THEN 2
-                WHEN hari = 'Rabu' THEN 3
-                WHEN hari = 'Kamis' THEN 4
-                WHEN hari = 'Jumat' THEN 5
-                WHEN hari = 'Sabtu' THEN 6
-                WHEN hari = 'Minggu' THEN 7
+                WHEN jadwal_sekolah.hari = 'Senin' THEN 1
+                WHEN jadwal_sekolah.hari = 'Selasa' THEN 2
+                WHEN jadwal_sekolah.hari = 'Rabu' THEN 3
+                WHEN jadwal_sekolah.hari = 'Kamis' THEN 4
+                WHEN jadwal_sekolah.hari = 'Jumat' THEN 5
+                WHEN jadwal_sekolah.hari = 'Sabtu' THEN 6
+                WHEN jadwal_sekolah.hari = 'Minggu' THEN 7
             END
         ")
-            ->orderBy('jam_ke')
+            ->orderBy('jadwal_sekolah.jam_ke') // 🔥 FIX UTAMA
+            ->select(
+                'jadwal.*',
+                'jadwal_sekolah.hari',
+                'jadwal_sekolah.jam_ke',
+                'jadwal_sekolah.jam_mulai',
+                'jadwal_sekolah.jam_selesai'
+            )
             ->get();
 
         return response()->json($jadwal);
@@ -291,7 +294,6 @@ class JadwalController extends Controller
     {
         $user = $request->user();
 
-        // ambil data siswa berdasarkan user login
         $siswa = \App\Models\Siswa::where('user_id', $user->id)->first();
 
         if (!$siswa) {
@@ -300,21 +302,30 @@ class JadwalController extends Controller
             ], 404);
         }
 
-        // ambil jadwal sesuai kelas siswa
-        $jadwal = Jadwal::with(['guru', 'kelas', 'matapel'])
-            ->where('kelas_id', $siswa->kelas_id)
+        $jadwal = Jadwal::with(['jadwalSekolah', 'guru', 'kelas', 'matapel'])
+            ->join('jadwal_sekolah', 'jadwal.jadwal_sekolah_id', '=', 'jadwal_sekolah.id')
+            ->where('jadwal.kelas_id', $siswa->kelas_id)
+
             ->orderByRaw("
             CASE 
-                WHEN hari = 'Senin' THEN 1
-                WHEN hari = 'Selasa' THEN 2
-                WHEN hari = 'Rabu' THEN 3
-                WHEN hari = 'Kamis' THEN 4
-                WHEN hari = 'Jumat' THEN 5
-                WHEN hari = 'Sabtu' THEN 6
-                WHEN hari = 'Minggu' THEN 7
+                WHEN jadwal_sekolah.hari = 'Senin' THEN 1
+                WHEN jadwal_sekolah.hari = 'Selasa' THEN 2
+                WHEN jadwal_sekolah.hari = 'Rabu' THEN 3
+                WHEN jadwal_sekolah.hari = 'Kamis' THEN 4
+                WHEN jadwal_sekolah.hari = 'Jumat' THEN 5
+                WHEN jadwal_sekolah.hari = 'Sabtu' THEN 6
+                WHEN jadwal_sekolah.hari = 'Minggu' THEN 7
             END
         ")
-            ->orderBy('jam_ke')
+            ->orderBy('jadwal_sekolah.jam_ke')
+
+            ->select(
+                'jadwal.*',
+                'jadwal_sekolah.hari',
+                'jadwal_sekolah.jam_ke',
+                'jadwal_sekolah.jam_mulai',
+                'jadwal_sekolah.jam_selesai'
+            )
             ->get();
 
         return response()->json($jadwal);
@@ -324,7 +335,6 @@ class JadwalController extends Controller
     {
         $user = $request->user();
 
-        // ambil guru dari user login
         $guru = \App\Models\Guru::where('user_id', $user->id)->first();
 
         if (!$guru) {
@@ -333,23 +343,62 @@ class JadwalController extends Controller
             ], 404);
         }
 
-        // ambil jadwal sesuai guru
-        $jadwal = Jadwal::with(['guru', 'kelas', 'matapel'])
-            ->where('guru_id', $guru->id)
+        $jadwal = Jadwal::with(['jadwalSekolah', 'guru', 'kelas', 'matapel'])
+            ->join('jadwal_sekolah', 'jadwal.jadwal_sekolah_id', '=', 'jadwal_sekolah.id')
+            ->where('jadwal.guru_id', $guru->id)
+
             ->orderByRaw("
             CASE 
-                WHEN hari = 'Senin' THEN 1
-                WHEN hari = 'Selasa' THEN 2
-                WHEN hari = 'Rabu' THEN 3
-                WHEN hari = 'Kamis' THEN 4
-                WHEN hari = 'Jumat' THEN 5
-                WHEN hari = 'Sabtu' THEN 6
-                WHEN hari = 'Minggu' THEN 7
+                WHEN jadwal_sekolah.hari = 'Senin' THEN 1
+                WHEN jadwal_sekolah.hari = 'Selasa' THEN 2
+                WHEN jadwal_sekolah.hari = 'Rabu' THEN 3
+                WHEN jadwal_sekolah.hari = 'Kamis' THEN 4
+                WHEN jadwal_sekolah.hari = 'Jumat' THEN 5
+                WHEN jadwal_sekolah.hari = 'Sabtu' THEN 6
+                WHEN jadwal_sekolah.hari = 'Minggu' THEN 7
             END
         ")
-            ->orderBy('jam_ke')
+            ->orderBy('jadwal_sekolah.jam_ke')
+
+            ->select(
+                'jadwal.*',
+                'jadwal_sekolah.hari',
+                'jadwal_sekolah.jam_ke',
+                'jadwal_sekolah.jam_mulai',
+                'jadwal_sekolah.jam_selesai'
+            )
             ->get();
 
         return response()->json($jadwal);
+    }
+
+    public function jamSekolah()
+    {
+        $hariMap = [
+            'Monday' => 'Senin',
+            'Tuesday' => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu',
+            'Sunday' => 'Minggu',
+        ];
+
+        $today = $hariMap[\Carbon\Carbon::now()->format('l')];
+
+        // ambil jam masuk (jam_ke 1)
+        $jamMasuk = \App\Models\JadwalSekolah::where('hari', $today)
+            ->where('jam_ke', 1)
+            ->first();
+
+        // ambil jam pulang (jam_ke 6)
+        $jamPulang = \App\Models\JadwalSekolah::where('hari', $today)
+            ->where('jam_ke', 6)
+            ->first();
+
+        return response()->json([
+            'jam_masuk' => $jamMasuk->jam_mulai ?? '-',
+            'jam_pulang' => $jamPulang->jam_selesai ?? '-',
+        ]);
     }
 }

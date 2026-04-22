@@ -76,4 +76,29 @@ class AbsensiController extends Controller
 
         return back()->with('success', 'Absensi dan attendance terkait berhasil dihapus');
     }
+
+    public function rekapBulanan(Request $request)
+    {
+        $user = $request->user();
+
+        $bulan = now()->month;
+        $tahun = now()->year;
+
+        $data = Absensi::where('user_id', $user->id)
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->selectRaw("
+            status,
+            COUNT(*) as total
+        ")
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
+        return response()->json([
+            'Hadir' => $data['Hadir'] ?? 0,
+            'Ijin'  => $data['Ijin'] ?? 0,
+            'Sakit' => $data['Sakit'] ?? 0,
+            'Alpha' => $data['Alpha'] ?? 0,
+        ]);
+    }
 }

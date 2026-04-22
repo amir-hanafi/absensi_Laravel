@@ -6,6 +6,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MarketplaceController;
+use App\Http\Controllers\AbsensiController;
 
 /**
  * @file routes/api.php
@@ -85,3 +86,7 @@ Route::middleware('auth:sanctum')->get('/jadwal', [JadwalController::class, 'api
 Route::middleware('auth:sanctum')->get('/jadwal-siswa', [JadwalController::class, 'jadwalSiswa']);
 
 Route::middleware('auth:sanctum')->get('/jadwal-guru', [JadwalController::class, 'jadwalGuru']);
+
+Route::get('/jam-sekolah', [JadwalController::class, 'jamSekolah']);
+
+Route::middleware('auth:sanctum')->get('/rekap-absensi', [AbsensiController::class, 'rekapBulanan']);

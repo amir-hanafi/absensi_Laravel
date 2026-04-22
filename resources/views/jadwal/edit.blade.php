@@ -4,49 +4,51 @@
     @csrf
     @method('PUT')
 
-    <label>Hari</label>
-    <select name="hari">
-        <option value="Senin" {{ $jadwal->hari == 'Senin' ? 'selected' : '' }}>Senin</option>
-        <option value="Selasa" {{ $jadwal->hari == 'Selasa' ? 'selected' : '' }}>Selasa</option>
-        <option value="Rabu" {{ $jadwal->hari == 'Rabu' ? 'selected' : '' }}>Rabu</option>
-        <option value="Kamis" {{ $jadwal->hari == 'Kamis' ? 'selected' : '' }}>Kamis</option>
-        <option value="Jumat" {{ $jadwal->hari == 'Jumat' ? 'selected' : '' }}>Jumat</option>
-    </select>
+    <div class="mb-3">
+        <label>Jadwal (Hari & Jam)</label>
+        <select name="jadwal_sekolah_id" class="form-control" required>
+            <option value="">-- Pilih Jadwal --</option>
+
+            @foreach ($jadwalSekolah as $js)
+                <option value="{{ $js->id }}"
+                    {{ old('jadwal_sekolah_id', $jadwal->jadwal_sekolah_id ?? '') == $js->id ? 'selected' : '' }}>
+
+                    {{ $js->hari }} - Jam ke {{ $js->jam_ke }}
+                    ({{ $js->jam_mulai }} - {{ $js->jam_selesai }})
+                </option>
+            @endforeach
+
+        </select>
+    </div>
 
     <br><br>
 
-    <label>Jam Ke</label>
-    <input type="number" name="jam_ke" value="{{ $jadwal->jam_ke }}">
+    <div class="mb-3">
+        <label>Kelas</label>
+        <select name="kelas_id" class="form-control">
+            @foreach ($kelas as $k)
+                <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+            @endforeach
+        </select>
+    </div>
 
-    <br><br>
+    <div class="mb-3">
+        <label>Guru</label>
+        <select name="guru_id" class="form-control">
+            @foreach ($guru as $g)
+                <option value="{{ $g->id }}">{{ $g->nama }}</option>
+            @endforeach
+        </select>
+    </div>
 
-    <label>Kelas</label>
-    <select name="kelas_id">
-        @foreach ($kelas as $k)
-            <option value="{{ $k->id }}" {{ $jadwal->kelas_id == $k->id ? 'selected' : '' }}>
-                {{ $k->nama_kelas }}
-            </option>
-        @endforeach
-    </select>
-
-    <br><br>
-
-    <label>Mata Pelajaran</label>
-    <select name="matapel_id" id="matapel">
-        <option value="">-- pilih mapel --</option>
-        @foreach ($matapel as $m)
-            <option value="{{ $m->id }}" {{ $jadwal->matapel_id == $m->id ? 'selected' : '' }}>
-                {{ $m->mata_pelajaran }}
-            </option>
-        @endforeach
-    </select>
-
-    <br><br>
-
-    <label>Guru</label>
-    <select name="guru_id" id="guru">
-        <option value="">-- pilih guru --</option>
-    </select>
+    <div class="mb-3">
+        <label>Mata Pelajaran</label>
+        <select name="matapel_id" class="form-control">
+            @foreach ($mapel as $m)
+                <option value="{{ $m->id }}">{{ $m->mata_pelajaran }}</option>
+            @endforeach
+        </select>
+    </div>
 
     <br><br>
 

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jadwal extends Model
 {
     /// Nama tabel yang digunakan
-    protected $table = 'jadwal'; 
+    protected $table = 'jadwal';
 
     /**
      * @brief Atribut yang dapat diisi secara massal.
@@ -23,11 +23,10 @@ class Jadwal extends Model
      * @var array
      */
     protected $fillable = [
-        'hari',        ///< Hari pelajaran (contoh: Senin)
-        'jam_ke',      ///< Urutan jam ke-berapa
-        'guru_id',     ///< ID guru pengampu
-        'matapel_id',  ///< ID mata pelajaran
-        'kelas_id'     ///< ID kelas yang mendapat pelajaran
+        'jadwal_sekolah_id',
+        'kelas_id',
+        'guru_id',
+        'matapel_id'
     ];
 
     /**
@@ -88,5 +87,10 @@ class Jadwal extends Model
     public function attendances()
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function jadwalSekolah()
+    {
+        return $this->belongsTo(JadwalSekolah::class);
     }
 }

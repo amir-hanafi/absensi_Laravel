@@ -33,35 +33,32 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
 
-            /// Primary key auto increment
             $table->id();
 
-            /// Hari pelaksanaan pelajaran (contoh: Senin, Selasa, dll)
-            $table->string('hari');
+            // ✅ RELASI KE JADWAL SEKOLAH
+            $table->foreignId('jadwal_sekolah_id')
+                ->constrained('jadwal_sekolah')
+                ->cascadeOnDelete();
 
-            /// Menunjukkan jam pelajaran ke berapa
-            $table->integer('jam_ke');
-
-            /// Foreign key ke tabel kelas
-            /// Menentukan kelas yang mengikuti pelajaran
+            // kelas
             $table->foreignId('kelas_id')
                 ->constrained('kelas')
                 ->cascadeOnDelete();
 
-            /// Foreign key ke tabel guru
-            /// Menentukan guru yang mengajar
+            // guru
             $table->foreignId('guru_id')
                 ->constrained('guru')
                 ->cascadeOnDelete();
 
-            /// Foreign key ke tabel matapel
-            /// Menentukan mata pelajaran yang diajarkan
+            // mata pelajaran
             $table->foreignId('matapel_id')
                 ->constrained('matapel')
                 ->cascadeOnDelete();
 
-            /// Kolom created_at dan updated_at
             $table->timestamps();
+
+            // 🔥 OPTIONAL (disarankan)
+            $table->unique(['jadwal_sekolah_id', 'kelas_id']);
         });
     }
 

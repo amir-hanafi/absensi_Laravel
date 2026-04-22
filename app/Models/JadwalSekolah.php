@@ -27,4 +27,9 @@ class JadwalSekolah extends Model
         'jam_mulai',   ///< Waktu mulai pelajaran
         'jam_selesai'  ///< Waktu selesai pelajaran
     ];
+
+    public function jadwal()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }

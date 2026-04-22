@@ -22,32 +22,30 @@ blade
 
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>Hari</th>
-                            <th>Jam Ke</th>
+                            <th>Jam Ke</th> {{-- 🔥 TAMBAHAN --}}
+                            <th>Jam mulai - Jam selesai</th>
                             <th>Kelas</th>
                             <th>Guru</th>
-                            <th>Mata Pelajaran</th>
-                            <th width="200">Aksi</th>
+                            <th>Mapel</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
-                        @forelse ($jadwal as $key => $j)
+                        @forelse ($data as $j)
                             <tr>
 
-                                <td>{{ $key + 1 }}</td>
-
-                                <td>{{ $j->hari }}</td>
-
-                                <td>{{ $j->jam_ke }}</td>
-
-                                <td>{{ $j->kelas->nama_kelas ?? '-' }}</td>
-
-                                <td>{{ $j->guru->nama ?? '-' }}</td>
-
-                                <td>{{ $j->matapel->mata_pelajaran ?? '-' }}</td>
+                                <td>{{ $j->jadwalSekolah->hari }}</td>
+                                <td>{{ $j->jadwalSekolah->jam_ke }}</td>
+                                <td>
+                                    {{ $j->jadwalSekolah->jam_mulai }} -
+                                    {{ $j->jadwalSekolah->jam_selesai }}
+                                </td>
+                                <td>{{ $j->kelas->nama_kelas }}</td>
+                                <td>{{ $j->guru->nama }}</td>
+                                <td>{{ $j->matapel->mata_pelajaran }}</td>
 
                                 <td>
 
@@ -93,6 +91,6 @@ blade
 
     </div>
 
-    
+
 
 @endsection

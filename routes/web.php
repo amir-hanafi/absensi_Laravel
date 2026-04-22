@@ -104,3 +104,4 @@ Route::resource('guru-matapel', App\Http\Controllers\GuruMatapelController::clas
 Route::get('/get-guru-by-matapel/{id}', [App\Http\Controllers\JadwalController::class, 'getGuruByMatapel']);
 
 Route::get('/get-guru-available', [JadwalController::class, 'getGuruAvailable']);
+

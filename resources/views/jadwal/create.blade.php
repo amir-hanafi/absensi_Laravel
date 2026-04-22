@@ -3,39 +3,55 @@
 <form action="{{ route('jadwal.store') }}" method="POST">
     @csrf
 
-    <label>Hari</label>
-    <select name="hari">
-        <option value="Senin">Senin</option>
-        <option value="Selasa">Selasa</option>
-        <option value="Rabu">Rabu</option>
-        <option value="Kamis">Kamis</option>
-        <option value="Jumat">Jumat</option>
-    </select>
+    <div class="mb-3">
+        <label>Jadwal (Hari & Jam)</label>
+        <select name="jadwal_sekolah_id" class="form-control" required>
+            <option value="">-- Pilih Jadwal --</option>
 
-    <label>Jam Ke</label>
-    <input type="number" name="jam_ke"><br><br>
+            @foreach ($jadwalSekolah as $js)
+                <option value="{{ $js->id }}"
+                    {{ old('jadwal_sekolah_id', $jadwal->jadwal_sekolah_id ?? '') == $js->id ? 'selected' : '' }}>
 
-    <label>Kelas</label>
-    <select name="kelas_id">
-        @foreach ($kelas as $k)
-            <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
-        @endforeach
-    </select><br><br>
+                    {{ $js->hari }} - Jam ke {{ $js->jam_ke }}
+                    ({{ $js->jam_mulai }} - {{ $js->jam_selesai }})
+                </option>
+            @endforeach
 
-    <label>Mata Pelajaran</label>
-    <select name="matapel_id" id="matapel">
-        <option value="">-- pilih mapel --</option>
-        @foreach ($matapel as $m)
-            <option value="{{ $m->id }}">{{ $m->mata_pelajaran }}</option>
-        @endforeach
-    </select>
+        </select>
+    </div>
 
-    <br><br>
+    <div class="mb-3">
+        <label>Kelas</label>
+        <select name="kelas_id" class="form-control" required>
+            <option value="">-- Pilih Kelas --</option>
 
-    <label>Guru</label>
-    <select name="guru_id" id="guru">
-        <option value="">-- pilih guru --</option>
-    </select>
+            @foreach ($kelas as $k)
+                <option value="{{ $k->id }}" {{ old('kelas_id') == $k->id ? 'selected' : '' }}>
+                    {{ $k->nama_kelas }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    
+
+    <div class="mb-3">
+        <label>Mata Pelajaran</label>
+        <select name="matapel_id" id="matapel" class="form-control">
+            @foreach ($mapel as $m)
+                <option value="{{ $m->id }}">{{ $m->mata_pelajaran }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Guru</label>
+        <select name="guru_id" id="guru" class="form-control">
+            @foreach ($guru as $g)
+                <option value="{{ $g->id }}">{{ $g->nama }}</option>
+            @endforeach
+        </select>
+    </div>
 
     <br><br>
 
@@ -85,15 +101,14 @@
     function loadGuru() {
 
         let matapel = document.getElementById('matapel').value;
-        let hari = document.querySelector('[name="hari"]').value;
-        let jam_ke = document.querySelector('[name="jam_ke"]').value;
+        let jadwalSekolah = document.getElementById('jadwal_sekolah').value;
         let guruSelect = document.getElementById('guru');
 
-        if (!matapel || !hari || !jam_ke) return;
+        if (!matapel || !jadwalSekolah) return;
 
         guruSelect.innerHTML = '<option>Loading...</option>';
 
-        fetch(`/get-guru-available?matapel_id=${matapel}&hari=${hari}&jam_ke=${jam_ke}`)
+        fetch(`/get-guru-available?matapel_id=${matapel}&jadwal_sekolah_id=${jadwalSekolah}`)
             .then(res => res.json())
             .then(data => {
 
@@ -114,8 +129,7 @@
             });
     }
 
-    // trigger semua
+    // trigger
     document.getElementById('matapel').addEventListener('change', loadGuru);
-    document.querySelector('[name="hari"]').addEventListener('change', loadGuru);
-    document.querySelector('[name="jam_ke"]').addEventListener('input', loadGuru);
+    document.getElementById('jadwal_sekolah').addEventListener('change', loadGuru);
 </script>

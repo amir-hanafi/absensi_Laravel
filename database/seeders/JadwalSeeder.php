@@ -8,6 +8,7 @@ use App\Models\Guru;
 use App\Models\Matapel;
 use App\Models\Kelas;
 
+
 class JadwalSeeder extends Seeder
 {
     public function run(): void
