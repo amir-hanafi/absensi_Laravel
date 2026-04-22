@@ -4,51 +4,46 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Jadwal;
+use App\Models\JadwalSekolah;
+use App\Models\Kelas;
 use App\Models\Guru;
 use App\Models\Matapel;
-use App\Models\Kelas;
-
 
 class JadwalSeeder extends Seeder
 {
     public function run(): void
     {
+        $jadwalSekolahList = JadwalSekolah::all();
+        $kelasList = Kelas::all();
         $gurus = Guru::all();
         $matapels = Matapel::all();
-        $kelasList = Kelas::all();
 
-        if ($gurus->isEmpty() || $matapels->isEmpty() || $kelasList->isEmpty()) {
+        if (
+            $jadwalSekolahList->isEmpty() ||
+            $kelasList->isEmpty() ||
+            $gurus->isEmpty() ||
+            $matapels->isEmpty()
+        ) {
             return;
         }
 
-        $hariList = [
-            "Senin",
-            "Selasa",
-            "Rabu",
-            "Kamis",
-            "Jumat"
-        ];
-
-        $jamList = [1,2,3,4,5];
-
         foreach ($kelasList as $kelas) {
 
-            foreach ($hariList as $hari) {
+            foreach ($jadwalSekolahList as $jadwalSekolah) {
 
-                foreach ($jamList as $jamKe) {
+                // 🔥 ambil guru random
+                $guru = $gurus->random();
 
-                    Jadwal::create([
-                        'hari' => $hari,
-                        'jam_ke' => $jamKe,
-                        'guru_id' => $gurus->random()->id,
-                        'matapel_id' => $matapels->random()->id,
-                        'kelas_id' => $kelas->id,
-                    ]);
+                // 🔥 ambil mapel random
+                $mapel = $matapels->random();
 
-                }
-
+                Jadwal::create([
+                    'jadwal_sekolah_id' => $jadwalSekolah->id,
+                    'kelas_id' => $kelas->id,
+                    'guru_id' => $guru->id,
+                    'matapel_id' => $mapel->id,
+                ]);
             }
-
         }
     }
 }

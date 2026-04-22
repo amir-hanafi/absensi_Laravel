@@ -19,7 +19,7 @@
                     <th>NIS</th>
                     <th>Nama</th>
                     <th>Kelas</th>
-                    <th>Guru</th>
+                    <th>Wali Kelas</th>
                     <th>Aksi</th>
                 </tr>
             </thead>

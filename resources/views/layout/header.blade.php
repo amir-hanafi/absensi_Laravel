@@ -7,7 +7,7 @@
             <span id="toggleIcon" class="mdi mdi-arrow-left"></span>
         </button>
         <ul class="navbar-nav navbar-nav-left header-links">
-            <li class="nav-item d-none d-xl-flex">
+            {{-- <li class="nav-item d-none d-xl-flex">
                 <a href="#" class="nav-link">Schedule <span class="badge badge-primary ml-1">New</span>
                 </a>
             </li>
@@ -29,11 +29,11 @@
                     <a href="#" class="dropdown-item"><i class="mdi mdi-elevation-rise"></i>Reports</a>
                     <a href="#" class="dropdown-item"><i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
                 </div>
-            </li>
+            </li> --}}
 
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
                     data-toggle="dropdown" aria-expanded="false">
                     <i class="mdi mdi-file-outline"></i>
@@ -77,8 +77,8 @@
                         </div>
                     </a>
                 </div>
-            </li>
-            <li class="nav-item dropdown">
+            </li> --}}
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                     data-toggle="dropdown">
                     <i class="mdi mdi-bell-outline"></i>
@@ -118,8 +118,8 @@
                         </div>
                     </a>
                 </div>
-            </li>
-            <li class="nav-item dropdown d-none d-xl-inline-block">
+            </li> --}}
+            {{-- <li class="nav-item dropdown d-none d-xl-inline-block">
                 <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
                     aria-expanded="false">
                     <span class="profile-text d-none d-md-inline-flex">{{ auth()->check() ? auth()->user()->username : 'Guest' }}</span>
@@ -145,7 +145,7 @@
                     <a class="dropdown-item"> Check Inbox </a>
                     <a class="dropdown-item"> Sign Out </a>
                 </div>
-            </li>
+            </li> --}}
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
             data-toggle="offcanvas">

@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             MatapelSeeder::class,       /**< Seeder untuk tabel matapel */
             GuruMatapelSeeder::class,   /**< Seeder untuk tabel pivot guru_matapel */
             JadwalSekolahSeeder::class, /**< Seeder untuk tabel jadwal_sekolah */
-            // JadwalSeeder::class,      /**< Seeder untuk tabel jadwal (di-comment) */
+            JadwalSeeder::class,      /**< Seeder untuk tabel jadwal (di-comment) */
             PlaceSeeder::class,         /**< Seeder untuk tabel places */
             PointRuleSeeder::class,        
             FlexibilityItemSeeder::class,       
