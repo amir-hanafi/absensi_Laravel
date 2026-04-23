@@ -17,6 +17,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\GuruMatapelController;
 use App\Http\Controllers\JadwalSekolahController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\TicketController;
 
 /**
  * =========================
@@ -113,3 +114,35 @@ Route::middleware('auth')->group(function () {
         Route::get('/get-kelas-by-tingkat', [SiswaController::class, 'getKelasByTingkat']);
     });
 });
+
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+    Route::resource('tickets', TicketController::class);
+
+    Route::post('/tickets/{id}/response', [TicketController::class, 'storeResponse'])
+        ->name('tickets.response.store');
+
+    Route::post('/tickets/{id}/close', [TicketController::class, 'close'])
+        ->name('tickets.close');
+
+    Route::post('/tickets/{id}/rating', [TicketController::class, 'storeRating'])
+    ->name('tickets.rating.store');
+
+    Route::get('/dashboard/helpdesk', [DashboardController::class, 'helpdesk'])
+    ->name('dashboard.helpdesk')
+    ->middleware('role:admin');
+});
+
+Route::middleware(['auth', 'role:siswa'])->group(function () {
+
+    Route::get('/my-tickets', [TicketController::class, 'myTickets'])->name('tickets.my');
+
+    Route::get('/my-tickets/create', [TicketController::class, 'create'])->name('tickets.create');
+
+    Route::post('/my-tickets', [TicketController::class, 'store'])->name('tickets.store');
+
+    
+});
+
+

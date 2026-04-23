@@ -73,6 +73,7 @@
                     <button class="btn btn-primary">Simpan</button>
                     <a href="{{ route('user.index') }}" class="btn btn-secondary">Kembali</a>
 
+                    
                 </form>
 
             </div>

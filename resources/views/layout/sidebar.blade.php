@@ -137,6 +137,20 @@
             </li>
         @endif
 
+        <li class="nav-item {{ request()->is('tickets*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('tickets.index') }}">
+                <i class="menu-icon mdi mdi-ticket"></i>
+                <span class="menu-title">Ticketing</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('dashboard.helpdesk') }}">
+                <i class="menu-icon mdi mdi-chart-line"></i>
+                <span class="menu-title">Helpdesk Analytics</span>
+            </a>
+        </li>
+
 
         {{-- LOGOUT --}}
         <li class="nav-item">

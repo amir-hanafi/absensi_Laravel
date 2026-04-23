@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             PlaceSeeder::class,         /**< Seeder untuk tabel places */
             PointRuleSeeder::class,        
             FlexibilityItemSeeder::class,       
+            CategorySeeder::class,
             // AssessmentCategorySeeder::class, /**< Seeder untuk kategori penilaian (di-comment) */
         ]);
     }
